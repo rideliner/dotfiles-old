@@ -1,0 +1,63 @@
+[user]
+    name = Nathan Currier
+    email = nathan.currier@gmail.com
+[github]
+    user = rideliner
+[core]
+    symlinks = false
+    autocrlf = input
+    editor = "'gedit' --new-window"
+    whitespace = fix,-indent-with-non-tab,trailing-space,cr-at-eol
+    excludesfile = ~/.gitignore
+[color]
+    ui = true
+    branch = auto
+    interactive = true
+[color "diff"]
+    whitespace = red reverse
+    meta = yellow bold
+    frag = magenta bold
+    old = red bold
+    new = green bold
+[color "status"]
+    added = green
+    changed = yellow
+    untracked = cyan
+[alias]
+    ignore = rm -rf --cached --
+    need-ignore = ls-files -i --exclude-standard
+    stage = add
+    stage-all = add -A
+    remove = rm
+    need-remove = git ls-files -d
+    auto-commit = commit -am
+    auto-commit-text = commit -a -e
+    commit-text = commit -e
+    fix-commit = commit -a --ammend
+    missing = ls-files -o --exclude-standard
+    modified = ls-files -m --exclude-standard
+    branches = branch -a
+    unstage = reset HEAD --
+    hash = log -1 --pretty=format:"%H"
+    hash-short = log -1 --pretty=format:"%h"
+    last-commit = log -1 HEAD
+    delete-branch = branch -d
+    push-tags = push --tags
+    my-log = !git config --global user.email | git log --author=
+    num-commits = shortlog -sn
+    current-branch = !git symbolic-ref HEAD 2>/dev/null | cut -d"/" -f 3
+    root = rev-parse --show-toplevel
+    message = log -1 --pretty=format:"%b"
+[github]
+    user = rideliner
+    token = 5f276a7c165a9065b1fce40f034ef38c
+[push]
+    default = current
+[pull]
+    default = current
+[advice]
+    statusHints = false
+[log]
+    abbrevCommit = true
+[mergetool]
+    keepBackup = true

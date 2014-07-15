@@ -1,0 +1,6 @@
+---
+:verbose: false
+gem: --no-document
+sources:
+- http://gems.rubyforge.org/
+- http://rubygems.org/
