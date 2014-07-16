@@ -16,3 +16,29 @@ function maxcpu() {
 function clearcpu() {
   killall yes
 }
+
+# xclip shortcuts for clipboard
+if (( $+commands[xclip] )); then
+  function cb() {
+    local input
+    if ! [[ "$(tty)" == /dev/* ]]; then
+      input="$(< /dev/stdin)"
+    else
+      input="$*"
+    fi
+
+    echo -n "$input" | xclip -selection c
+  }
+
+  # Copy contents of a file
+  function cbf() {
+    cat "$1" | cb
+  }
+
+  # Copy current working directory
+  alias cbwd="pwd | cb"
+
+  # Copy most recent command in bash history
+  alias cbhs="cat $HISTFILE | tail -n 1 | cb"
+fi
+
