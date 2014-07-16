@@ -21,7 +21,9 @@ typeset -gU cdpath fpath mailpath path
 export PAGER="less"
 export LESS="-R -F"
 
-export LC_CTYPE=$LANG
+export LC_ALL=en_US.utf8
+export LANG=en_US.utf8
+export LANGUAGE=en_US.utf8
 
 # URLs
 autoload -Uz url-quote-magic
