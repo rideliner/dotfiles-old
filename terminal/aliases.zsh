@@ -2,7 +2,8 @@
 alias sudo='sudo '
 alias reload!='source ~/.zshrc'
 
-alias md='mkdir -p'
+alias mkdir='mkdir -p'
+alias md='mkdir'
 alias rd='rmdir'
 alias d='dirs -v | head -10'
 

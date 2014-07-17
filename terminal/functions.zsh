@@ -1,4 +1,8 @@
 
+function mcd() {
+  mkdir "$1" && cd "$1"
+}
+
 function aes-enc() {
   openssl enc -aes-256-cbc -e -in $1 -out "$1.aes"
 }
