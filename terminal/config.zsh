@@ -25,6 +25,8 @@ export LC_ALL=en_US.utf8
 export LANG=en_US.utf8
 export LANGUAGE=en_US.utf8
 
+export PROCESSORS="$(grep -c '^processor' /proc/cpuinfo)"
+
 # URLs
 autoload -Uz url-quote-magic
 zle -N self-insert url-quote-magic
