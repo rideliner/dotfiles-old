@@ -12,7 +12,7 @@ function aes-dec() {
 }
 
 function maxcpu() {
-  dn=/dev/null
+  local dn=/dev/null
   yes > $dn & yes > $dn & yes > $dn & yes > $dn &
   yes > $dn & yes > $dn & yes > $dn & yes > $dn &
 }
