@@ -19,7 +19,7 @@ export GREP_COLOR='1;32' # '37;45' alternative?
 typeset -gU cdpath fpath mailpath path
 
 export PAGER="less"
-export LESS="-R -F"
+export LESS="RFX"
 
 export LC_ALL=en_US.utf8
 export LANG=en_US.utf8
