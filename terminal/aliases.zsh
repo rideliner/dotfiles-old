@@ -14,7 +14,7 @@ alias -- -='cd -'
 alias /='cd /'
 
 alias clear='echo -ne "\033c"'
-alias make='make -j 4'
+alias make='make -j $PROCESSORS'
 
 alias ls='ls --color=tty'
 
