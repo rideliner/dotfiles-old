@@ -1,12 +1,20 @@
 
-
 ## install
 
 ```sh
 git clone https://github.com/rideliner/dotfiles.git <local-repo-dir>
-cd <local-repo-dir>
-./bootstrap.sh
 ```
+
+## bootstrap
+
+```sh
+./bootstrap.sh --all | <mod>...
+```
+
+- `--all`
+  symlink all modules available
+- `<mod>...`
+  symlink the specified modules if available
 
 ## components
 
