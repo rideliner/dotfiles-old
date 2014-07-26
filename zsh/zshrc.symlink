@@ -5,10 +5,13 @@ REAL_PATH=${${$(readlink -fnq -- ${ZDOTDIR-~}/.zshrc)%/*}%/*}
 
 [[ -s "$REAL_PATH/default.path" ]] && source "$REAL_PATH/default.path"
 
+zstyle -a ':ride' modules 'mods'
+
 typeset -U config_files
-config_files=(${REAL_PATH}/**/*.zsh)
+config_files=($REAL_PATH/$^mods/*.zsh(N))
 
 unset REAL_PATH
+unset mods
 
 # load the path files
 for file in ${(M)config_files:#*/path.zsh}
