@@ -1,9 +1,9 @@
 
+[[ -s "$HOME/.local-rc" ]] && source "$HOME/.local-rc"
+
 REAL_PATH=${${$(readlink -fnq -- ${ZDOTDIR-~}/.zshrc)%/*}%/*}
 
 [[ -s "$REAL_PATH/default.path" ]] && source "$REAL_PATH/default.path"
-
-[[ -s "$HOME/.localrc" ]] && source "$HOME/.localrc"
 
 typeset -U config_files
 config_files=(${REAL_PATH}/**/*.zsh)
@@ -33,6 +33,8 @@ do
 done
 
 unset config_files
+
+[[ -s "$HOME/.local+rc" ]] && source "$HOME/.local+rc"
 
 # remove missing path directories
 path=($^path(N))
