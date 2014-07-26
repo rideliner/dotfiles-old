@@ -39,6 +39,7 @@ git clone https://github.com/rideliner/dotfiles.git <local-repo-dir>
 
 ## modules
 - zsh (always loaded)
+- tmux
 - git
 - ruby
 - rvm
