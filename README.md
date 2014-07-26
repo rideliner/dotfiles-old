@@ -1,12 +1,20 @@
 
-
 ## install
 
 ```sh
 git clone https://github.com/rideliner/dotfiles.git <local-repo-dir>
-cd <local-repo-dir>
-./bootstrap.sh
 ```
+
+## bootstrap
+
+```sh
+./bootstrap.sh --all | <mod>...
+```
+
+- `--all`
+  symlink all modules available
+- `<mod>...`
+  symlink the specified modules if available
 
 ## components
 
@@ -15,22 +23,36 @@ cd <local-repo-dir>
 - **\*/completion.zsh**:
 - **\*/\*.symlink**:
 
-## local config
+## zsh file load order
+- /etc/zshenv
+- ~/.zshenv
+- /etc/zprofile
+- ~/.zprofile
+- /etc/zshrc
+- ~/.local-rc
+- ~/.zshrc
+- ~/.local+rc
+- /etc/zlogin
+- ~/.zlogin
+- ~/.zlogout
+- /etc/zlogout
 
-- **~/.localrc**: sourced at the beginning of .zshrc.
-- **~/.zshenv**:
-- **~/.zlogin**:
-- **~/.zlogout**:
+## modules
+- zsh (always loaded)
+- git
+- ruby
+- rvm
+- terminal
+- ssh
+- server
+- colostate
+- fonts
 
-# /etc/zshenv
-# ~/.zshenv
-# /etc/zprofile
-# ~/.zprofile
-# /etc/zshrc
-# ~/.localrc
-# ~/.zshrc
-# ~/.zpreztorc
-# /etc/zlogin
-# ~/.zlogin
-# ~/.zlogout
-# /etc/zlogout
+## using a module
+In your ~/.local-rc file:
+
+    zstyle ':ride' modules <mod>...
+
+Ex.
+
+    zstyle ':ride' modules ruby rvm git
