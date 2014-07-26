@@ -70,15 +70,37 @@ function link_file() {
 
 function symlink_dotfiles() {
   local REAL_PATH="${$(readlink -fnq $0)%/*}"
-  local src dst
-  local overwrite_all=false backup_all=false skip_all=false
 
-  for src in **/*.symlink(n) ; do
-    dst="$HOME/.$(basename "${src%\.*}")"
-    src="${REAL_PATH}/${src}"
+  if [[ $# == 0 ]]; then
+    echo "Usage:"
+    echo "  ./bootstrap.sh --all"
+    echo "  ./bootstrap.sh <module>..."
+    echo
+    echo "Available modules:"
 
-    link_file "$src" "$dst"
-  done
+    echo "  !!TODO"
+  else
+    local src dst files
+    local overwrite_all=false backup_all=false skip_all=false
+
+    if [[ "$1" == "--all" ]]; then
+      files=($REAL_PATH/**/*.symlink)
+    else
+      local mods mod_links mod_dirs
+
+      mods=(zsh ${^*})
+      mod_links=($REAL_PATH/${^mods}.symlink(N))
+      mod_dirs=($REAL_PATH/${^mods}/*.symlink(N))
+      files=($mod_links $mod_dirs)
+    fi
+
+    for src in $files ; do
+      dst="$HOME/.$(basename "${src%\.*}")"
+      src="${REAL_PATH}/${src}"
+
+      link_file "$src" "$dst"
+    done
+  fi
 }
 
-symlink_dotfiles
+symlink_dotfiles $*
