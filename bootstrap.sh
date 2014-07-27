@@ -96,7 +96,6 @@ function symlink_dotfiles() {
 
     for src in $files ; do
       dst="$HOME/.$(basename "${src%\.*}")"
-      src="${REAL_PATH}/${src}"
 
       link_file "$src" "$dst"
     done
