@@ -21,3 +21,5 @@ alias ls='ls --color=tty'
 alias top='htop'
 
 alias path='echo -e ${PATH//:/\\n}'
+
+alias todo='grep -R "TODO" *'
