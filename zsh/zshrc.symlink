@@ -1,4 +1,5 @@
 
+[[ -s "$HOME/.dot" ]] && source "$HOME/.dot"
 [[ -s "$HOME/.local-rc" ]] && source "$HOME/.local-rc"
 
 REAL_PATH=${${$(readlink -fnq -- ${ZDOTDIR-~}/.zshrc)%/*}%/*}

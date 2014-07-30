@@ -68,38 +68,43 @@ function link_file() {
   fi
 }
 
-function symlink_dotfiles() {
+function dotfiles() {
   local REAL_PATH="${$(readlink -fnq $0)%/*}"
 
-  if [[ $# == 0 ]]; then
-    echo "Usage:"
-    echo "  ./bootstrap.sh --all"
-    echo "  ./bootstrap.sh <module>..."
+  if [[ $# != 0 ]]; then
+    echo "Modules need to be set in ~/.dot"
+    echo
+    echo "Format:"
+    echo "  zstyle ':ride' modules <mods>..."
+    echo "ex. zstyle ':ride' modules tmux terminal rvm ruby"
     echo
     echo "Available modules:"
 
     echo "  !!TODO"
   else
-    local src dst files
+    local src dst links boots
     local overwrite_all=false backup_all=false skip_all=false
 
-    if [[ "$1" == "--all" ]]; then
-      files=($REAL_PATH/**/*.symlink)
-    else
-      local mods mod_links mod_dirs
+    local mods mod_links mod_dirs
 
-      mods=(zsh ${^*})
-      mod_links=($REAL_PATH/${^mods}.symlink(N))
-      mod_dirs=($REAL_PATH/${^mods}/*.symlink(N))
-      files=($mod_links $mod_dirs)
-    fi
+    zstyle -a ':ride' modules 'mods'
 
-    for src in $files ; do
+    mod_links=($REAL_PATH/${^mods}.symlink(N))
+    mod_dirs=($REAL_PATH/${^mods}/*.symlink(N))
+    boots=($REAL_PATH/${^mods}/*.bootstrap(N))
+    links=($mod_links $mod_dirs)
+
+    for src in $links ; do
       dst="$HOME/.$(basename "${src%\.*}")"
 
       link_file "$src" "$dst"
     done
+
+    for src in $boots ; do
+      source "$src"
+    done
   fi
 }
 
-symlink_dotfiles $*
+source ~/.dot
+dotfiles $*

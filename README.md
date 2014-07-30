@@ -7,38 +7,43 @@ git clone https://github.com/rideliner/dotfiles.git <local-repo-dir>
 
 ## bootstrap
 
-```sh
-./bootstrap.sh --all | <mod>...
-```
+Modify ~/.dot to include your desired modules (listed below):
 
-- `--all`
-  symlink all modules available
-- `<mod>...`
-  symlink the specified modules if available
+    zstyle ':ride' modules <mod>...
+
+Ex.
+
+    zstyle ':ride' modules ruby rvm git
+
+```sh
+./bootstrap.sh
+```
 
 ## components
 
-- **\*/*\.zsh**:
-- **\*/path.zsh**:
-- **\*/completion.zsh**:
-- **\*/\*.symlink**:
+- __\*/\*.zsh__ : file sourced by ~/.zshrc
+- __\*/path.zsh__ : path environment for the module
+- __\*/completion.zsh__ : completion scripts for the module
+- __\*/\*.symlink__ :  file or directory to be symlinked to home
+- __\*/\*.bootstrap__ : script to be run when bootstrap is run
 
 ## zsh file load order
-- /etc/zshenv
-- ~/.zshenv
-- /etc/zprofile
-- ~/.zprofile
-- /etc/zshrc
-- ~/.local-rc
-- ~/.zshrc
-- ~/.local+rc
-- /etc/zlogin
-- ~/.zlogin
-- ~/.zlogout
-- /etc/zlogout
+- `/etc/zshenv`
+- `~/.zshenv`
+- `/etc/zprofile`
+- `~/.zprofile` _managed_
+- `/etc/zshrc`
+- `~/.dot` - module config
+- `~/.local-rc` - personal config before
+- `~/.zshrc` _managed_
+- `~/.local+rc` - personal config after
+- `/etc/zlogin`
+- `~/.zlogin`
+- `~/.zlogout`
+- `/etc/zlogout`
 
 ## modules
-- zsh (always loaded)
+- zsh (always loaded; first)
 - tmux
 - git
 - ruby
@@ -48,12 +53,3 @@ git clone https://github.com/rideliner/dotfiles.git <local-repo-dir>
 - server
 - colostate
 - fonts
-
-## using a module
-In your ~/.local-rc file:
-
-    zstyle ':ride' modules <mod>...
-
-Ex.
-
-    zstyle ':ride' modules ruby rvm git
