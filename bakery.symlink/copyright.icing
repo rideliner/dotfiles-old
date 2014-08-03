@@ -1,0 +1,29 @@
+#
+# Copyright (c) 2013
+# Nathan Currier
+#
+# Use, modification, and distribution are all subject to the
+# Boost Software License, Version 1.0. (See the accompanying
+# file LICENSE.md or at http://rideliner.tk/LICENSE.html).
+#
+# A user pluggable copyright message for Bakery.
+#
+ 
+defaultCopyright(
+  "Copyright (c) #{Time.now.year}",
+  Proc.new { | |
+    Bakery[:authors].join(', ')
+  },
+  '',
+  'Use, modification, and distribution are all subject to the',
+  'Boost Software License, Version 1.0. (See the accompanying',
+  'file LICENSE.md or at http://rideliner.tk/LICENSE.html).',
+  '',
+  '<description>'
+)
+ 
+def license
+  file 'LICENSE.md' do
+    from 'boost.license'
+  end
+end
