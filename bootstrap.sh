@@ -80,7 +80,14 @@ function dotfiles() {
     echo
     echo "Available modules:"
 
-    echo "  !!TODO"
+    local -aU mods
+
+    mods+=($REAL_PATH/*.symlink(:t:r))
+    mods+=($REAL_PATH/*/*.symlink(:h:t))
+    mods+=($REAL_PATH/*/*.bootstrap(:h:t))
+    for mod in $mods ; do
+      echo "  $mod"
+    done
   else
     local src dst links boots
     local overwrite_all=false backup_all=false skip_all=false
