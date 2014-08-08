@@ -82,9 +82,9 @@ function dotfiles() {
 
     local -aU mods
 
-    mods+=($REAL_PATH/*.symlink(:t:r))
-    mods+=($REAL_PATH/*/*.symlink(:h:t))
-    mods+=($REAL_PATH/*/*.bootstrap(:h:t))
+    mods+=($REAL_PATH/*.symlink(N:t:r))
+    mods+=($REAL_PATH/*/*.symlink(N:h:t))
+    mods+=($REAL_PATH/*/*.bootstrap(N:h:t))
     for mod in $mods ; do
       echo "  $mod"
     done
