@@ -9,6 +9,7 @@
     editor = "'gedit' --new-window"
     whitespace = fix,-indent-with-non-tab,trailing-space,cr-at-eol
     excludesfile = ~/.gitignore
+    sharedRepository = group
 [color]
     ui = true
     branch = auto
