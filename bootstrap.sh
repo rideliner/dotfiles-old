@@ -92,9 +92,11 @@ function dotfiles() {
     local src dst links boots
     local overwrite_all=false backup_all=false skip_all=false
 
-    local mods mod_links mod_dirs
+    local -U mods mod_links mod_dirs
 
     zstyle -a ':ride' modules 'mods'
+
+    mods=(zsh $mods)
 
     mod_links=($REAL_PATH/${^mods}.symlink(N))
     mod_dirs=($REAL_PATH/${^mods}/*.symlink(N))
