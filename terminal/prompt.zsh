@@ -3,25 +3,16 @@ autoload -U colors && colors
 autoload -U promptinit && promptinit
 autoload -U add-zsh-hook
 
-# my personal color scheme:
-
-#  color  | text color  | bold color
-#---------+-------------+-------------
-# black   |   #XXXXXX   |   #XXXXXX
-# red     |   #XXXXXX   |   #XXXXXX
-# green   |   #XXXXXX   |   #XXXXXX
-# yellow  |   #XXXXXX   |   #XXXXXX
-# blue    |   #XXXXXX   |   #XXXXXX
-# magenta |   #XXXXXX   |   #XXXXXX
-# cyan    |   #XXXXXX   |   #XXXXXX
-# white   |   #XXXXXX   |   #XXXXXX
-
 function prompt_character() {
-  if [[ "`id -u`" -eq 0 ]]; then
-    echo -e "%{$fg_bold[magenta]%} "
-  else
-    echo -e "%{$fg_bold[cyan]%}✝ "
-  fi
+  local char color
+
+  zstyle -s ':ride:prompt' char char
+  [[ -z $char ]] && char='$'
+
+  zstyle -s ':ride:prompt' color color
+  [[ -z $color ]] && color='white'
+
+  echo -e "%{$fg_bold[$color]%}$char "
 }
 
 PROMPT='$(prompt_character) %{$fg_bold[yellow]%}'

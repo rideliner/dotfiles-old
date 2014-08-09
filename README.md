@@ -44,11 +44,14 @@ Ex.
 
 ## modules
 - zsh (always loaded; first)
+  - `':ride' modules` - space separated list of modules
 - tmux
 - git
 - ruby
 - rvm
 - terminal
+  - `':ride:prompt' char` - character to start the prompt
+  - `':ride:prompt' color` - color of the above character
 - ssh
 - server
 - colostate
