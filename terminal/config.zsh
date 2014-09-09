@@ -40,7 +40,7 @@ unsetopt hist_beep              # don't beep on invalid history entry
 unsetopt list_beep              # don't beep on ambiguous completion
   setopt local_options          # allow functions to have local options
   setopt local_traps            # allow functions to have local traps
-  setopt hist_verify            #
+unsetopt hist_verify            # don't verify commands completed from history
   setopt hist_ignore_dups       # don't add to history if same as previous
   setopt hist_save_no_dups      #
   setopt hist_reduce_blanks     # remove blanks from commands
