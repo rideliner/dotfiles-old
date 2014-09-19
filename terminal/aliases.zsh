@@ -13,7 +13,7 @@ alias ....='cd ../../..'
 alias -- -='cd -'
 alias /='cd /'
 
-alias clear='echo -ne "\033c"'
+alias clear='[ "$TMUX" != "" ] && tmux send-keys -R \; clear-history || echo -ne "\033c"'
 alias make='make -j $PROCESSORS'
 
 alias ls='ls --color=tty'
