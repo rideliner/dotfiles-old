@@ -2,6 +2,3 @@
   :machines: '~/.colostate/machines.rb'
   :user: 'ride'
   :key: '~/.ssh/id_rsa'
-  :ignore:
-    :machines:
-      - 'jefferson-city'
