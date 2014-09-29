@@ -21,9 +21,9 @@ typeset -gU cdpath fpath mailpath path
 export PAGER="less"
 export LESS="RFX"
 
-export LC_ALL=en_US.utf8
-export LANG=en_US.utf8
-export LANGUAGE=en_US.utf8
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+export LANGUAGE=en_US.UTF-8
 
 export PROCESSORS="$(grep -c '^processor' /proc/cpuinfo)"
 
