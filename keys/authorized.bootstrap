@@ -1,0 +1,49 @@
+#!/usr/bin/env zsh
+
+zmodload -ap zsh/mapfile mapfile
+
+function bootstrap() {
+  local authorized_keys new_keys skipped_keys
+  local key data
+
+  new_keys=()
+  skipped_keys=()
+  authorized_keys=( "${(f@)mapfile[$HOME/.ssh/authorized_keys]}" )
+
+  local found_keys
+  found_keys=($1/*.key(N))
+  for key in $found_keys; do
+    data=${(f@)mapfile[$key]}
+
+    if [[ ${authorized_keys[(i)$data]} -le ${#authorized_keys} ]]; then
+      skipped_keys+=$data
+      authorized_keys=("${(@)authorized_keys:#$data}")
+    else
+      new_keys+=$data
+    fi
+  done
+
+  # $authorized_keys
+  #   in ~/.ssh/authorized_keys, but no associated .key file
+  #
+  # $new_keys
+  #   not in ~/.ssh/authorized_keys, but has a .key file
+  #
+  # $skipped_keys
+  #   found in both ~/.ssh/authorized_keys and a .key file
+  #
+
+  local final_keys
+  final_keys=($new_keys $skipped_keys)
+
+  # TODO
+  # go through each of the $authorized_keys and mark them as keep or delete
+  final_keys+=($authorized_keys)
+
+  echo -n >| $HOME/.ssh/authorized_keys
+  for key in $final_keys; do
+    echo $key >> $HOME/.ssh/authorized_keys
+  done
+}
+
+bootstrap "$(dirname $0:A)"

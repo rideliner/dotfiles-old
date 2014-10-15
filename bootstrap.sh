@@ -8,6 +8,10 @@ function success() {
   printf "\r\033[2K  [ \033[00;32mOK\033[0m ] $1\n"
 }
 
+function fail() {
+  printf "\r\033[2k  [ \033[0;31mFAIL\033[0m] $1\n"
+}
+
 function link_file() {
   local src=$1 dst=$2
 
@@ -112,6 +116,12 @@ function dotfiles() {
 
     for src in $boots ; do
       source "$src"
+
+      if [[ $? == 0 ]]; then
+        success "run $src"
+      else
+        fail "run $src"
+      fi
     done
   fi
 }
