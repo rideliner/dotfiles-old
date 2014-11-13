@@ -2,3 +2,13 @@
   :machines: '~/.colostate/machines.rb'
   :user: 'ride'
   :key: '~/.ssh/id_rsa'
+  :alias:
+    me: brazeau
+    hpc:
+      - coconuts
+      - bananas
+    labs:
+      - 120
+      - 215
+      - 225
+      - 325
