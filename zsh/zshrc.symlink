@@ -45,4 +45,3 @@ path=($^path(N))
 
 export path
 
-ls
