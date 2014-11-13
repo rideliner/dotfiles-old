@@ -2,6 +2,8 @@
 export LSCOLORS="exfxcxdxbxegedabagacad"
 export CLICOLOR=true
 
+export EDITOR='vim'
+
 HISTFILE=$HOME/.zhistory
 HISTSIZE=10000
 SAVEHIST=10000
