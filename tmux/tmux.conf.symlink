@@ -1,3 +1,6 @@
+
+set-option -g default-shell /usr/bin/zsh
+
 # Automatically set window title
 setw -g automatic-rename on
 set -g set-titles on
@@ -32,8 +35,9 @@ bind -n S-Right next-window
 
 unbind %
 unbind '"'
-bind | split-window -h
-bind - split-window -v
+bind | split-window -h \; select-layout
+bind - split-window -v \; select-layout
+bind x confirm-before -p "kill-pane #P? (y/n)" kill-pane \; select-layout
 
 # Set status bar
 set -g status-bg black
