@@ -1,0 +1,2 @@
+
+alias emux='exec tmux'
