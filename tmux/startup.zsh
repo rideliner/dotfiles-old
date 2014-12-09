@@ -1,2 +1,4 @@
 
-alias emux='exec tmux'
+function emux() {
+  [[ -z "$TMUX" ]] && exec tmux
+}
