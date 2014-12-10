@@ -1,0 +1,39 @@
+VisualHostKey yes
+ForwardX11 yes
+ForwardX11Trusted yes
+SendEnv LANG LC_ALL LANGUAGE
+Protocol 2
+TCPKeepAlive yes
+
+Host cray
+    User ncurrier
+    Hostname cray2.colostate.edu
+
+Host git.rideliner.net
+    User git
+    Hostname rideliner.net
+    Port 4900
+
+Host poirot poirot.rideliner.net
+    Hostname poirot.rideliner.net
+    Port 4900
+
+Host oliver oliver.rideliner.net
+    Hostname oliver.rideliner.net
+    Port 22
+
+Host marple marple.rideliner.net
+    Hostname marple.rideliner.net
+    Port 4949
+
+Host github.com
+    User git
+
+Host bitbucket.org
+    User git
+
+Host *.cs.colostate.edu
+    ForwardAgent yes
+
+Host *.rideliner.net
+    ForwardAgent yes
