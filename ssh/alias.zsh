@@ -1,2 +1,2 @@
 
-alias ssh='ssh -F =(cat ~/.ssh/config ~/.ssh.config(N))'
+alias ssh='ssh -F =(cat /dev/null ~/.ssh/config(N) ~/.ssh.config(N))'
