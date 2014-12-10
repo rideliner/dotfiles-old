@@ -1,9 +1,11 @@
-VisualHostKey yes
-ForwardX11 yes
-ForwardX11Trusted yes
-SendEnv LANG LC_ALL LANGUAGE
-Protocol 2
-TCPKeepAlive yes
+
+Host *
+    VisualHostKey yes
+    ForwardX11 yes
+    ForwardX11Trusted yes
+    SendEnv LANG LC_ALL LANGUAGE
+    Protocol 2
+    TCPKeepAlive yes
 
 Host cray
     User ncurrier
