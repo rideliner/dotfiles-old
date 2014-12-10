@@ -12,3 +12,5 @@
       - 215
       - 225
       - 325
+  :commands:
+    tmux: -t "(tmux attach || tmux)"
