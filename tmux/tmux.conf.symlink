@@ -1,5 +1,5 @@
 
-set-option -g default-shell /usr/bin/zsh
+set -g default-shell /usr/bin/zsh
 
 # Automatically set window title
 setw -g automatic-rename on
