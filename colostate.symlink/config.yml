@@ -3,14 +3,15 @@
   :user: 'ride'
   :key: '~/.ssh/id_rsa'
   :alias:
+    office: '252'
     me: brazeau
     hpc:
       - coconuts
       - bananas
     labs:
-      - 120
-      - 215
-      - 225
-      - 325
+      - '120'
+      - '215'
+      - '225'
+      - '325'
   :commands:
     tmux: -t "(tmux attach || tmux)"
