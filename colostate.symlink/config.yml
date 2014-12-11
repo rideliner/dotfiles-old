@@ -1,5 +1,5 @@
 :cs:
-  :machines: '~/.colostate/machines.rb'
+  :machines: '~/.colostate/machines.yml'
   :user: 'ride'
   :key: '~/.ssh/id_rsa'
   :alias:
