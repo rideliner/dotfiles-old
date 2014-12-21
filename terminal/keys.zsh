@@ -48,3 +48,12 @@ else
   bindkey "\e[3~" delete-char
 fi
 
+# [Up-Arrow] - history forward
+if [[ "${terminfo[kcuu1]}" != "" ]]; then
+  bindkey "${terminfo[kcuu1]}" up-line-or-search
+fi
+
+# [Down-Arrow] - history backward
+if [[ "${terminfo[kcud1]}" != "" ]]; then
+  bindkey "${terminfo[kcud1]}" down-line-or-search
+fi
