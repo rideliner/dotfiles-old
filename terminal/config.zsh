@@ -8,15 +8,6 @@ HISTFILE=$HOME/.zhistory
 HISTSIZE=10000
 SAVEHIST=10000
 
-GREP_OPTIONS=
-for PATTERN in .cvs .git .hg .svn; do
-  GREP_OPTIONS+="--exclude-dir=$PATTERN "
-done
-
-GREP_OPTIONS+="--color=auto"
-export GREP_OPTIONS="$GREP_OPTIONS"
-export GREP_COLOR='1;32' # '37;45' alternative?
-
 # keep only the first occurences
 typeset -gU cdpath fpath mailpath path
 
