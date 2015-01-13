@@ -49,6 +49,7 @@
     current-branch = !git symbolic-ref HEAD 2>/dev/null | cut -d"/" -f 3
     root = rev-parse --show-toplevel
     message = log -1 --pretty=format:"%b"
+    permission-reset = !git diff -p | grep -E "^(diff|old mode|new mode)" | sed -e "s/^old/NEW/;s/^new/old/;s/^NEW/new/" | git apply
 [github]
     user = rideliner
     token = 5f276a7c165a9065b1fce40f034ef38c
