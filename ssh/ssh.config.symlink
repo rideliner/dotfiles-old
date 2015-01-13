@@ -14,19 +14,23 @@ Host cray
 Host git.rideliner.net
     User git
     Hostname rideliner.net
-    Port 4900
+    Port 22
 
 Host poirot poirot.rideliner.net
     Hostname poirot.rideliner.net
-    Port 4900
+    Port 22
 
 Host oliver oliver.rideliner.net
     Hostname oliver.rideliner.net
-    Port 22
+    Port 4949
 
 Host marple marple.rideliner.net
     Hostname marple.rideliner.net
-    Port 4949
+    Port 4900
+
+Host pyne pyne.rideliner.net
+    Hostname pyne.rideliner.net
+    Port 4999
 
 Host github.com
     User git
