@@ -1,0 +1,2 @@
+zstyle ':ride:symlink:git' config ~/.gitconfig
+zstyle ':ride:symlink:git' ignore ~/.gitignore

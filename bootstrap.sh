@@ -86,7 +86,6 @@ function dotfiles() {
 
     local -aU mods
 
-    mods+=($REAL_PATH/*.symlink(N:t:r))
     mods+=($REAL_PATH/*/*.symlink(N:h:t))
     mods+=($REAL_PATH/*/*.bootstrap(N:h:t))
     mods+=($REAL_PATH/*/*.zsh(N:h:t))
@@ -94,22 +93,32 @@ function dotfiles() {
       echo "  $mod"
     done
   else
-    local src dst links boots
+    local mod src dst link boots modules
     local overwrite_all=false backup_all=false skip_all=false
 
-    local -U mods mod_links mod_dirs
+    local -U mods
 
     zstyle -a ':ride' modules 'mods'
 
     mods=(zsh $mods)
 
-    mod_links=($REAL_PATH/${^mods}.symlink(N))
-    mod_dirs=($REAL_PATH/${^mods}/*.symlink(N))
-    boots=($REAL_PATH/${^mods}/*.bootstrap(N))
-    links=($mod_links $mod_dirs)
+    for src ($REAL_PATH/${^mods}/.meta(N)) ; do
+      source $src
+    done
 
-    for src in $links ; do
-      dst="$HOME/.$(basename "${src%\.*}")"
+    modules=($REAL_PATH/${^mods}/*.symlink(N))
+    boots=($REAL_PATH/${^mods}/*.bootstrap(N))
+
+    for src in $modules ; do
+      mod=${src:h:t}
+      link=${src:t:r}
+
+      zstyle -T ":ride:symlink:$mod" $link
+      if [ $? -eq 1 ]; then
+        zstyle -s ":ride:symlink:$mod" $link dst
+      else
+        dst="~/.$link"
+      fi
 
       link_file "$src" "$dst"
     done
