@@ -13,9 +13,9 @@ A module could have files/directories of the following format:
   - A directory that is to be symlinked
 - `<file>.bootstrap`
   - A script to be executed during each run of bootstrap.sh
-- `<file>.path` (NYI)
+- `<file>.path`
   - Contains modifications to the path environment variable
-- `<file>.completion` (NYI)
+- `<file>.completion`
   - Contains modifications to the zsh completion system
 
 ### Dependencies - Not Yet Implemented
