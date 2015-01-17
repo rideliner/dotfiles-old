@@ -1,2 +1,2 @@
-zstyle ':ride:symlink:zsh' profile ~/.zprofile
-zstyle ':ride:symlink:zsh' rc ~/.zshrc
+zstyle ':ride:symlink:zsh' profile ${ZDOTDIR-~}/.zprofile
+zstyle ':ride:symlink:zsh' rc ${ZDOTDIR-~}/.zshrc
