@@ -6,10 +6,10 @@ autoload -U add-zsh-hook
 function prompt_character() {
   local char color
 
-  zstyle -s ':ride:prompt' char char
+  zstyle -s ':ride:config:terminal:prompt' char char
   [[ -z $char ]] && char='$'
 
-  zstyle -s ':ride:prompt' color color
+  zstyle -s ':ride:config:terminal:prompt' color color
   [[ -z $color ]] && color='white'
 
   echo -e "%{$fg_bold[$color]%}$char "

@@ -71,7 +71,7 @@ NOTE: Leave out the .symlink extension from the module's file.
 
 WARNING: Unexpected results if a file symlink and a directory symlink have the same name. Most OSes don't allow it, but worth noting.
 
-### Configuring - Not Yet Implemented
+### Configuring
 
 The amount of configuration offered by each module will vary, possibly with no configuration offered.
 
@@ -79,6 +79,10 @@ All configuration should be stored in the .dot file in the following format:
 
 ```
 zstyle ':ride:config:<module>' <key> <value(s)>...
+# The module may split the configuration into categories:
+zstyle ':ride:config:<module>:<category>' <key> <value(s)>...
+# It may even have chained subcategories (not likely unless it has a lot of config)
+zstyle ':ride:config:<module>:<category>:<sub-cat>:<sub-cat>:...' <key> <value(s)>...
 ```
 
 Each module should describe individually what the available configuration is.
