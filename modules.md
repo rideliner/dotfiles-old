@@ -33,7 +33,7 @@ zstyle ':ride:depend' <module> <depended-modules>...
 
 NOTE: This should only appear once in the .meta file and should contain a space separated list of the dependencies in the desired order.
 
-### Loading - Not Yet Implemented
+### Loading
 
 The order that .zsh files, .path files, and .completion files are loaded on a per module basis can be controlled through the .meta file.
 
