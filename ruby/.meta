@@ -1,0 +1,2 @@
+zstyle ':ride:symlink:ruby' gemrc ~/.gemrc
+zstyle ':ride:symlink:ruby' irbrc ~/.irbrc

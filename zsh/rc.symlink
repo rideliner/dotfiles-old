@@ -1,0 +1,64 @@
+
+[[ -s "$HOME/.dot" ]] && source "$HOME/.dot"
+[[ -s "$HOME/.local-rc" ]] && source "$HOME/.local-rc"
+
+local REAL_PATH=${${$(readlink -fnq -- ${ZDOTDIR-~}/.zshrc)%/*}%/*}
+
+[[ -s "$REAL_PATH/default.path" ]] && source "$REAL_PATH/default.path"
+
+local mods module file
+
+zstyle -a ':ride' modules mods
+
+for meta ($REAL_PATH/${^mods}/.meta(N)); do
+  source $meta
+done
+
+local -aU config_files path_files completion_files
+
+# load the path files
+for module in $mods; do
+  zstyle -a ":ride:order:$module" path path_files
+  path_files=($REAL_PATH/$module/${^path_files}.path(N))
+  path_files+=($REAL_PATH/$module/*.path(N))
+
+  for file in $path_files; do
+    source $file
+  done
+done
+
+# load the zsh files
+for module in $mods; do
+  zstyle -a ":ride:order:$module" zsh config_files
+  config_files=($REAL_PATH/$module/${^config_files}.zsh(N))
+  config_files+=($REAL_PATH/$module/*.zsh(N))
+
+  for file in $config_files; do
+    source $file
+  done
+done
+
+# initialize autocomplete here, otherwise functions won't be loaded
+autoload -U compinit
+compinit
+
+# load every completion file after autocomplete tools
+for module in $mods; do
+  zstyle -a ":ride:order:$module" completion completion_files
+  completion_files=($REAL_PATH/$module/${^completion_files}.completion(N))
+  completion_files+=($REAL_PATH/$module/*.completion(N))
+
+  for file in $completion_files; do
+    source $file
+  done
+done
+
+unset REAL_PATH mods module file config_files path_files completion_files
+
+[[ -s "$HOME/.local+rc" ]] && source "$HOME/.local+rc"
+
+# remove missing path directories
+path=($^path(N))
+
+export path
+
