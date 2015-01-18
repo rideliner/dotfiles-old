@@ -21,11 +21,11 @@ Ex.
 
 ## components
 
-- __\*/\*.zsh__ : file sourced by ~/.zshrc
-- __\*/path.zsh__ : path environment for the module
-- __\*/completion.zsh__ : completion scripts for the module
-- __\*/\*.symlink__ :  file or directory to be symlinked to home
-- __\*/\*.bootstrap__ : script to be run when bootstrap is run
+- __<module>/\*.zsh__ : file sourced by ~/.zshrc
+- __<module>/\*.path__ : path environment for the module
+- __<module>/\*.completion__ : completion scripts for the module
+- __<module>/\*.symlink__ :  file or directory to be symlinked to home
+- __<module>/\*.bootstrap__ : script to be run when bootstrap is run
 
 ## zsh file load order
 - `/etc/zshenv`
@@ -50,8 +50,8 @@ Ex.
 - ruby
 - rvm
 - terminal
-  - `':ride:prompt' char` - character to start the prompt
-  - `':ride:prompt' color` - color of the above character
+  - `':ride:config:terminal:prompt' char` - character to start the prompt
+  - `':ride:config:terminal:prompt' color` - color of the above character
 - ssh
 - server
 - colostate
