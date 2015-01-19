@@ -6,7 +6,7 @@ local REAL_PATH=${${$(readlink -fnq -- ${ZDOTDIR-~}/.zshrc)%/*}%/*}
 
 [[ -s "$REAL_PATH/default.path" ]] && source "$REAL_PATH/default.path"
 
-local mods module file
+local mods module src_file
 
 zstyle -a ':ride' modules mods
 
@@ -22,8 +22,8 @@ for module in $mods; do
   path_files=($REAL_PATH/$module/${^path_files}.path(N))
   path_files+=($REAL_PATH/$module/*.path(N))
 
-  for file in $path_files; do
-    source $file
+  for src_file in $path_files; do
+    source $src_file
   done
 done
 
@@ -33,8 +33,8 @@ for module in $mods; do
   config_files=($REAL_PATH/$module/${^config_files}.zsh(N))
   config_files+=($REAL_PATH/$module/*.zsh(N))
 
-  for file in $config_files; do
-    source $file
+  for src_file in $config_files; do
+    source $src_file
   done
 done
 
@@ -48,8 +48,8 @@ for module in $mods; do
   completion_files=($REAL_PATH/$module/${^completion_files}.completion(N))
   completion_files+=($REAL_PATH/$module/*.completion(N))
 
-  for file in $completion_files; do
-    source $file
+  for src_file in $completion_files; do
+    source $src_file
   done
 done
 
