@@ -24,6 +24,8 @@ alias top='htop'
 alias path='echo -e ${PATH//:/\\n}'
 
 alias todo='grep -R "TODO" *'
+alias ping='ping -c4'
+alias pong='ping 8.8.8.8'
 
 alias @='pwd'
 
