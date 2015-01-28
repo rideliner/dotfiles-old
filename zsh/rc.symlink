@@ -6,7 +6,7 @@ local REAL_PATH=${${$(readlink -fnq -- ${ZDOTDIR-~}/.zshrc)%/*}%/*}
 
 [[ -s "$REAL_PATH/default.path" ]] && source "$REAL_PATH/default.path"
 
-local mods module src_file
+local mods module
 
 zstyle -a ':ride' modules mods
 
