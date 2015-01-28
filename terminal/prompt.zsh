@@ -12,7 +12,7 @@ function prompt_character() {
   zstyle -s ':ride:config:terminal:prompt' color color
   [[ -z $color ]] && color='white'
 
-  echo -e "%{$fg_bold[$color]%}$char "
+  echo -e "%{$fg_bold[$color]%}$char"
 }
 
 PROMPT='$(prompt_character) %{$fg_bold[yellow]%}'
