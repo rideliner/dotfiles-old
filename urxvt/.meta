@@ -1,0 +1,1 @@
+zstyle ':ride:symlink:urxvt' xresources ~/.Xresources
