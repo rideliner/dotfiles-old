@@ -114,7 +114,13 @@ function dotfiles() {
       link=${src:t:r}
 
       zstyle -T ":ride:symlink:$mod" $link
-      if [ $? -eq 1 ]; then
+      origLink=$?
+      zstyle -T ":ride:symlink:override:$mod" $link
+      overLink=$?
+
+      if [ $overLink -eq 1 ]; then
+        zstyle -s ":ride:symlink:override:$mod" $link dst
+      elif [ $origLink -eq 1 ]; then
         zstyle -s ":ride:symlink:$mod" $link dst
       else
         dst="~/.$link"
