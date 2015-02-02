@@ -9,7 +9,7 @@ function success() {
 }
 
 function fail() {
-  printf "\r\033[2k  [ \033[0;31mFAIL\033[0m] $1\n"
+  printf "\r\033[2k  [ \033[0;31mFAIL\033[0m ] $1\n"
 }
 
 function link_file() {
