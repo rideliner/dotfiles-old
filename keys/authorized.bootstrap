@@ -2,7 +2,7 @@
 
 zmodload -ap zsh/mapfile mapfile
 
-function bootstrap() {
+function {
   local authorized_keys new_keys skipped_keys
   local key data
 
@@ -44,6 +44,4 @@ function bootstrap() {
   for key in $final_keys; do
     echo $key >> $HOME/.ssh/authorized_keys
   done
-}
-
-bootstrap "$(dirname $0:A)"
+} "$(dirname $0:A)"
