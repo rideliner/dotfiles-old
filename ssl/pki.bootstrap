@@ -1,0 +1,58 @@
+#!/usr/bin/env zsh
+
+function {
+  local str file cert overwrite_all skip_all
+  zstyle -a ':ride:config:ssl' certificates certs
+
+  for cert in $certs; do
+    local overwrite skip
+
+    file="$1/${cert}.cert"
+    if [[ ! -s "$file" ]]; then
+      fail "could not find $file"
+
+      continue
+    fi
+
+    str="$(cat $file)"
+    existing="$(certutil -L -d sql:$HOME/.pki/nssdb -n "${cert}" -a 2>/dev/null | sed 's/\r$//')"
+
+    if [[ $? == 0 ]]; then
+      if [[ "$str" == "$existing" ]]; then
+        skip="true"
+      else
+        user "Certificate already exists: $cert, what do you want to do? [s]kip, [S]kip all, [o]verwrite, [O]verwrite all?"
+        read -s -k 1 "action"
+
+        case "$action" in
+          o )
+            overwrite="true";;
+          O )
+            overwrite_all="true";;
+          s )
+            skip="true";;
+          S )
+            skil_all="true";;
+          * )
+            ;;
+        esac
+      fi
+    fi
+
+    overwrite=${overwrite:-$overwrite_all}
+    skip=${skip:-$skip_all}
+
+    if [[ "$skip" == "true" ]]; then
+      success "skipped $file"
+    fi
+
+    if [[ "$skip" != "true" ]]; then
+      certutil -d sql:$HOME/.pki/nssdb -A -t TC -n "${cert}" -i "$file"
+      if [[ "$overwrite" == "true" ]]; then
+        success "overwrote '$cert' ssl certificate"
+      else
+        success "added '$cert' ssl certificate"
+      fi
+    fi
+  done
+} "$(dirname $0:A)"
