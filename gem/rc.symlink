@@ -3,7 +3,9 @@
 :bulk_threshold: 1000
 :sources:
 - https://rubygems.org/
-- http://gems.rideliner.net/
+- https://gem.rideliner.net/
 :update_sources: true
 :verbose: false
 gem: "--no-document"
+:ssl_ca_cert: !ruby/object:YAMLDotfilePath
+  path: 'ssl/ca.rideliner.net.cert'
