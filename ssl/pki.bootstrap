@@ -4,6 +4,10 @@ function {
   local str file cert overwrite_all skip_all
   zstyle -a ':ride:config:ssl' certificates certs
 
+  if [[ $#certs -eq 0 ]]; then
+    warning 'no certificates set to be loaded'
+  fi
+
   for cert in $certs; do
     local overwrite skip
 
