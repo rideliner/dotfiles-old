@@ -42,3 +42,7 @@ URxvt*color14 : #34E2E2
 ! white
 URxvt*color7  : #D3D7CF
 URxvt*color15 : #EEEEEC
+
+Xautolock.time: 10
+Xautolock.locker: slimlock
+Xautolock.detectsleep: true
