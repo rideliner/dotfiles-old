@@ -10,4 +10,8 @@ class YAMLDotfilePath
   def to_s
     File.expand_path File.join(File.dirname(__dir__), @path)
   end
+
+  def to_str
+    to_s
+  end
 end
