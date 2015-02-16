@@ -8,10 +8,15 @@ function {
     warning 'no certificates set to be loaded'
   fi
 
+  if [[ ! -s "$HOME/.pki/nssdb" ]]; then
+    fail "no ssl db found at $HOME/.pki/nssdb"
+    return 1
+  fi
+
   for cert in $certs; do
     local overwrite skip
 
-    file="$1/${cert}.cert"
+    file="$1/${cert}.pem"
     if [[ ! -s "$file" ]]; then
       fail "could not find $file"
 

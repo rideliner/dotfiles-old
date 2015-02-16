@@ -1,0 +1,3 @@
+#!/usr/bin/env zsh
+
+c_rehash "${$(readlink -fnq $0)%/*}" >/dev/null
