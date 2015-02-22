@@ -16,7 +16,7 @@ function {
   for cert in $certs; do
     local overwrite skip
 
-    file="$1/${cert}.pem"
+    file="$DOTFILES_PATH/ssl/${cert}.pem"
     if [[ ! -s "$file" ]]; then
       fail "could not find $file"
 
@@ -64,4 +64,4 @@ function {
       fi
     fi
   done
-} "$(dirname $0:A)"
+}

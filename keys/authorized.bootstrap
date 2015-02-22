@@ -11,7 +11,7 @@ function {
   authorized_keys=( "${(f@)mapfile[$HOME/.ssh/authorized_keys]}" )
 
   local found_keys
-  found_keys=($1/*.key(N))
+  found_keys=($DOTFILES_PATH/keys/*.key(N))
   for key in $found_keys; do
     data=${(f@)mapfile[$key]}
 
@@ -44,4 +44,4 @@ function {
   for key in $final_keys; do
     echo $key >> $HOME/.ssh/authorized_keys
   done
-} "$(dirname $0:A)"
+}

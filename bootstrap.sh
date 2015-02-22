@@ -1,35 +1,23 @@
 #!/usr/bin/env zsh
 
-function user() {
-  printf "\r  [ \033[0;33m?\033[0m ] $1 "
-}
-
-function success() {
-  printf "\r\033[2K  [ \033[00;32mOK\033[0m ] $1\n"
-}
-
-function fail() {
-  printf "\r\033[2k  [ \033[0;31mFAIL\033[0m ] $1\n"
-}
-
-function warning() {
-  printf "\r\033[2k  [ \033[0;33mWARN\033[0m ] $1\n"
-}
+source "${0:A:h}/.internal/path.zsh"
+source "$DOTFILES_PATH/.internal/mode.zsh"
+source "$DOTFILES_PATH/.internal/dependency.zsh"
 
 function link_file() {
-  local src=$1 dst=$2
+  local src=$1 dst="${2:a}"
 
   local overwrite backup skip
   local action
 
   if [[ -f "$dst" || -d "$dst" || -L "$dst" ]]; then
     if [[ "$overwrite_all" == "false" && "$backup_all" == "false" &&  "$skip_all" == "false" ]]; then
-      local currentSrc="$(readlink $dst)"
+      local currentSrc="${dst:A}"
 
       if [[ "$currentSrc" == "$src" ]]; then
         skip="true"
       else
-        user "File already exists: $(basename "$dst"), what do you want to do? [s]kip, [S]kip all, [o]verwrite, [O]verwrite all, [b]ackup, [B]ackup all?"
+        user "File already exists: ${dst:t}, what do you want to do? [s]kip, [S]kip all, [o]verwrite, [O]verwrite all, [b]ackup, [B]ackup all?"
         read -s -k 1 "action"
 
         case "$action" in
@@ -72,13 +60,11 @@ function link_file() {
 
   if [[ "$skip" != "true" ]]; then  # "false" or empty
     ln -s "$src" "$dst"
-    success "linked $src to $dst"
+    success "linked $src to ${dst:a}"
   fi
 }
 
 function dotfiles() {
-  local REAL_PATH="${$(readlink -fnq $0)%/*}"
-
   if [[ $# != 0 ]]; then
     echo "Modules need to be set in ~/.dot"
     echo
@@ -88,11 +74,9 @@ function dotfiles() {
     echo
     echo "Available modules:"
 
-    local -aU mods
+    local mods
+    findAllModules mods
 
-    mods+=($REAL_PATH/*/*.symlink(N:h:t))
-    mods+=($REAL_PATH/*/*.bootstrap(N:h:t))
-    mods+=($REAL_PATH/*/*.zsh(N:h:t))
     for mod in $mods ; do
       echo "  $mod"
     done
@@ -100,18 +84,12 @@ function dotfiles() {
     local mod src dst link boots modules
     local overwrite_all=false backup_all=false skip_all=false
 
-    local -U mods
+    local mods
+    getModulesAndDependencies mods
+    loadMeta mods
 
-    zstyle -a ':ride' modules 'mods'
-
-    mods=(zsh $mods)
-
-    for src ($REAL_PATH/${^mods}/.meta(N)) ; do
-      source $src
-    done
-
-    modules=($REAL_PATH/${^mods}/*.symlink(N))
-    boots=($REAL_PATH/${^mods}/*.bootstrap(N))
+    modules=($DOTFILES_PATH/${^mods}/*.symlink(N))
+    boots=($DOTFILES_PATH/${^mods}/*.bootstrap(N))
 
     for src in $modules ; do
       mod=${src:h:t}
@@ -127,7 +105,7 @@ function dotfiles() {
       elif [ $origLink -eq 1 ]; then
         zstyle -s ":ride:symlink:$mod" $link dst
       else
-        dst="~/.$link"
+        dst="$HOME/.$link"
       fi
 
       link_file "$src" "$dst"
@@ -146,4 +124,4 @@ function dotfiles() {
 }
 
 source ~/.dot
-dotfiles $*
+dotfiles

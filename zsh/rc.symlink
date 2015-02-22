@@ -2,25 +2,22 @@
 [[ -s "$HOME/.dot" ]] && source "$HOME/.dot"
 [[ -s "$HOME/.local-rc" ]] && source "$HOME/.local-rc"
 
-local REAL_PATH=${${$(readlink -fnq -- ${ZDOTDIR-~}/.zshrc)%/*}%/*}
+source $(echo ${ZDOTDIR:-$HOME}/.zshrc(:A:h:h))/.internal/path.zsh
 
-[[ -s "$REAL_PATH/default.path" ]] && source "$REAL_PATH/default.path"
+[[ -s "$DOTFILES_PATH/default.path" ]] && source "$DOTFILES_PATH/default.path"
 
-local mods module
+source "$DOTFILES_PATH/.internal/dependency.zsh"
 
-zstyle -a ':ride' modules mods
-
-for meta ($REAL_PATH/${^mods}/.meta(N)); do
-  source $meta
-done
+local mods
+getModulesAndDependencies mods
 
 local -aU config_files path_files completion_files
 
 # load the path files
 for module in $mods; do
   zstyle -a ":ride:order:$module" path path_files
-  path_files=($REAL_PATH/$module/${^path_files}.path(N))
-  path_files+=($REAL_PATH/$module/*.path(N))
+  path_files=($DOTFILES_PATH/$module/${^path_files}.path(N))
+  path_files+=($DOTFILES_PATH/$module/*.path(N))
 
   for src_file in $path_files; do
     source $src_file
@@ -30,8 +27,8 @@ done
 # load the zsh files
 for module in $mods; do
   zstyle -a ":ride:order:$module" zsh config_files
-  config_files=($REAL_PATH/$module/${^config_files}.zsh(N))
-  config_files+=($REAL_PATH/$module/*.zsh(N))
+  config_files=($DOTFILES_PATH/$module/${^config_files}.zsh(N))
+  config_files+=($DOTFILES_PATH/$module/*.zsh(N))
 
   for src_file in $config_files; do
     source $src_file
@@ -45,15 +42,15 @@ compinit
 # load every completion file after autocomplete tools
 for module in $mods; do
   zstyle -a ":ride:order:$module" completion completion_files
-  completion_files=($REAL_PATH/$module/${^completion_files}.completion(N))
-  completion_files+=($REAL_PATH/$module/*.completion(N))
+  completion_files=($DOTFILES_PATH/$module/${^completion_files}.completion(N))
+  completion_files+=($DOTFILES_PATH/$module/*.completion(N))
 
   for src_file in $completion_files; do
     source $src_file
   done
 done
 
-unset REAL_PATH mods module file config_files path_files completion_files
+unset mods module file config_files path_files completion_files
 
 [[ -s "$HOME/.local+rc" ]] && source "$HOME/.local+rc"
 
