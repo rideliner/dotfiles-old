@@ -10,7 +10,7 @@ function {
 
   if [[ ! -s "$HOME/.pki/nssdb" ]]; then
     fail "no ssl db found at $HOME/.pki/nssdb"
-    return 1
+    return $?
   fi
 
   for cert in $certs; do

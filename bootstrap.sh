@@ -13,11 +13,7 @@ function dotfiles() {
   for src ($DOTFILES_PATH/.internal/*.bootstrap(N) $DOTFILES_PATH/${^mods}/*.bootstrap(N)); do
     source "$src"
 
-    if [[ $? == 0 ]]; then
-      success "run $src"
-    else
-      fail "run $src"
-    fi
+    status $? "run $src"
   done
 }
 
