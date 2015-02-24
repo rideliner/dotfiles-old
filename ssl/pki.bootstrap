@@ -31,19 +31,21 @@ function {
         skip="true"
       else
         user "Certificate already exists: $cert, what do you want to do? [s]kip, [S]kip all, [o]verwrite, [O]verwrite all?"
-        read -s -k 1 "action"
+        while [[ "$action" == "" ]]; do
+          read -s -k 1 "action"
 
-        case "$action" in
-          o )
-            overwrite="true";;
-          O )
-            overwrite_all="true";;
-          s )
-            skip="true";;
-          S )
-            skil_all="true";;
-          * )
-            ;;
+          case "$action" in
+            o )
+              overwrite="true";;
+            O )
+              overwrite_all="true";;
+            s )
+              skip="true";;
+            S )
+              skip_all="true";;
+            * )
+              action="";;
+          done
         esac
       fi
     fi
@@ -53,14 +55,12 @@ function {
 
     if [[ "$skip" == "true" ]]; then
       success "skipped $file"
-    fi
-
-    if [[ "$skip" != "true" ]]; then
+    else
       certutil -d sql:$HOME/.pki/nssdb -A -t TC -n "${cert}" -i "$file"
       if [[ "$overwrite" == "true" ]]; then
-        success "overwrote '$cert' ssl certificate"
+        status $? "overwrote '$cert' ssl certificate"
       else
-        success "added '$cert' ssl certificate"
+        status $? "added '$cert' ssl certificate"
       fi
     fi
   done
