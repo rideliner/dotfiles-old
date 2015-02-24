@@ -1,3 +1,12 @@
 #!/usr/bin/env zsh
 
-c_rehash "$DOTFILES_PATH/ssl" >/dev/null
+function {
+  if (( $+commands[c_rehash] )) ; then
+    c_rehash "$DOTFILES_PATH/ssl" >/dev/null
+  elif (( $+commands[cacertdir_rehash] )); then
+    cacertdir_rehash "$DOTFILES_PATH/ssl" >/dev/null
+  else
+    fail 'No command found to hash ssl certificates'
+    return $?
+  fi
+}
