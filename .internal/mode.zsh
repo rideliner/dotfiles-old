@@ -13,3 +13,11 @@ function fail() {
 function warning() {
   printf "\r\033[2K  [ \033[0;33mWARN\033[0m ] $1\n"
 }
+
+function status() {
+  if [[ $1 -eq 0 ]]; then
+    success "$2"
+  else
+    fail "$2"
+  fi
+}
