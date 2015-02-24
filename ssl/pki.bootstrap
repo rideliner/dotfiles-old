@@ -45,8 +45,8 @@ function {
               skip_all="true";;
             * )
               action="";;
-          done
-        esac
+          esac
+        done
       fi
     fi
 
