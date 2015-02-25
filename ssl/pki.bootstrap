@@ -1,7 +1,8 @@
 #!/usr/bin/env zsh
 
 function {
-  local str file cert overwrite_all skip_all
+  local str file cert
+  local action overwrite_all=false skip_all=false overwrite skip
   zstyle -a ':ride:config:ssl' certificates certs
 
   if [[ $#certs -eq 0 ]]; then
@@ -14,7 +15,8 @@ function {
   fi
 
   for cert in $certs; do
-    local overwrite skip
+    skip=
+    overwrite=
 
     file="$DOTFILES_PATH/ssl/${cert}.pem"
     if [[ ! -s "$file" ]]; then
@@ -29,7 +31,9 @@ function {
     if [[ $? == 0 ]]; then
       if [[ "$str" == "$existing" ]]; then
         skip="true"
-      else
+      elif [[ "$skip_all" == "false" && "$overwrite_all" == "false" ]]; then
+        action=
+
         user "Certificate already exists: $cert, what do you want to do? [s]kip, [S]kip all, [o]verwrite, [O]verwrite all?"
         while [[ "$action" == "" ]]; do
           read -s -k 1 "action"

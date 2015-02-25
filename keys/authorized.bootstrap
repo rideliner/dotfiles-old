@@ -3,45 +3,85 @@
 zmodload -ap zsh/mapfile mapfile
 
 function {
-  local authorized_keys new_keys skipped_keys
-  local key data
+  local file="$HOME/.ssh/authorized_keys"
+  local action keep_all discard_all discard
 
-  new_keys=()
-  skipped_keys=()
-  authorized_keys=( "${(f@)mapfile[$HOME/.ssh/authorized_keys]}" )
+  local data hex key fingerprint comment
+  local -aU existing_keys
 
-  local found_keys
-  found_keys=($DOTFILES_PATH/keys/*.key(N))
-  for key in $found_keys; do
-    data=${(f@)mapfile[$key]}
+  local -A keys
+  # key:   "<key>"
+  # value: "<message> key <fingerprint> <comment>"
 
-    if [[ ${authorized_keys[(i)$data]} -le ${#authorized_keys} ]]; then
-      skipped_keys+=$data
-      authorized_keys=("${(@)authorized_keys:#$data}")
+  existing_keys=(${(f)mapfile[$file]})
+
+  for key ($DOTFILES_PATH/keys/*.key(N)); do
+    data=(${(f)mapfile[$key]})
+
+    if [[ $#data -gt 1 ]]; then
+      fail "'$key' contains more than one key"
+      return $?
+    fi
+
+    hex="${data%%=*\ *}"
+    comment="${data#*=*\ }"
+    fingerprint="${${$(ssh-keygen -lf =(echo "$data"))#*\ }%%\ *}"
+
+    if [[ $? -ne 0 ]]; then
+      warning "'$key' does not contain a valid key"
+      continue
+    fi
+
+    if [[ ${existing_keys[(i)$hex*]} -le $#existing_keys ]]; then
+      keys[$data]="skipped key $fingerprint $comment"
+      existing_keys=("${(@)existing_keys:#$hex*}")
     else
-      new_keys+=$data
+      keys[$data]="added key $fingerprint $comment"
     fi
   done
 
-  # $authorized_keys
-  #   in ~/.ssh/authorized_keys, but no associated .key file
-  #
-  # $new_keys
-  #   not in ~/.ssh/authorized_keys, but has a .key file
-  #
-  # $skipped_keys
-  #   found in both ~/.ssh/authorized_keys and a .key file
-  #
+  # keys that don't have a corresponding .key file
+  for key in $existing_keys; do
+    discard=
 
-  local final_keys
-  final_keys=($new_keys $skipped_keys)
+    comment="${key#*=*\ }"
 
-  # TODO
-  # go through each of the $authorized_keys and mark them as keep or delete
-  final_keys+=($authorized_keys)
+    if [[ "$keep_all" == "false" && "$discard_all" == "false" ]]; then
+      action=
 
-  echo -n >| $HOME/.ssh/authorized_keys
-  for key in $final_keys; do
-    echo $key >> $HOME/.ssh/authorized_keys
+      user "Key was not found in repository: $comment, what do you want to do? [k]eep, [K]eep all, [d]iscard, [D]iscard all?"
+      while [[ "$action" == "" ]]; do
+        read -s -k 1 "action"
+
+        case "$action" in
+          k)
+            ;; # dual options means only discard needs to be tracked
+          K)
+            keep_all="true";;
+          d)
+            discard="true";;
+          D)
+            discard_all="true";;
+          *)
+            action="";;
+        esac
+      done
+    fi
+
+    discard=${discard:-$discard_all}
+
+    if [[ "$discard" == "true" ]]; then
+      success "discarded key '$comment'"
+    else
+      keys[$key]="kept key '$comment'"
+    fi
+
+    existing_keys=("${(@)existing_keys:#${key%%=*\ *}*}")
+  done
+
+  echo -n >| $file
+  for key in ${(@k)keys}; do
+    echo $key >> $file
+    status $? $keys[$key]
   done
 }
