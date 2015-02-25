@@ -1,0 +1,34 @@
+#!/usr/bin/env zsh
+
+if [[ $# -eq 0 ]]; then
+  echo "Modules need to be set in ~/.dot"
+  echo
+  echo "Format:"
+  echo "  zstyle ':ride' modules <mods>..."
+  echo "ex. zstyle ':ride' modules tmux terminal rvm ruby"
+  echo
+  echo "Available modules:"
+
+  local mods mod
+  findAllModules mods
+
+  for mod in $mods; do
+    echo "  $mod"
+  done
+else
+  local mod file
+
+  for mod (${(s:,:)*//=/}); do
+    file="$DOTFILES_PATH/$mod/.help"
+
+    if [[ -d $file:h ]]; then
+      if [[ -f $file ]]; then
+        source $file
+      else
+        warning "Module '$mod' does not have a help file"
+      fi
+    else
+      fail "'$mod' is not a module"
+    fi
+  done
+fi
