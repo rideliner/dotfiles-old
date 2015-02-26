@@ -9,12 +9,10 @@ if [[ $# -eq 0 ]]; then
   echo
   echo "Available modules:"
 
-  local mods mod
+  local mods
   findAllModules mods
 
-  for mod in $mods; do
-    echo "  $mod"
-  done
+  column =(echo "${(@F)mods}")
 else
   local mod file
 
