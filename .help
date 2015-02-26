@@ -16,19 +16,26 @@ function {
     column =(echo "${(@F)mods}")
   else
     local mod file
+    local majorRow="${(l:$COLUMNS::=:)}" minorRow="${(l:$COLUMNS::-:)}"
 
     for mod (${(s:,:)*//=/}); do
       file="$DOTFILES_PATH/$mod/.help"
+
+      echo
+      echo "$majorRow"
+      echo "${(l:$(( ($COLUMNS - $#mod) / 2 )):: :)}$mod"
+      echo "$minorRow"
+      echo
 
       if [[ -d $file:h ]]; then
         if [[ -f $file ]]; then
           source $file
         else
-          warning "Module '$mod' does not have a help file"
+          warning "no help file found"
         fi
       else
-        fail "'$mod' is not a module"
+        fail "not a module"
       fi
     done
   fi
-}
+} $*
