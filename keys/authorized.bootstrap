@@ -4,7 +4,7 @@ zmodload -ap zsh/mapfile mapfile
 
 function {
   local file="$HOME/.ssh/authorized_keys"
-  local action keep_all discard_all discard
+  local action keep_all=false discard_all=false discard
 
   local data hex key fingerprint comment
   local -aU existing_keys
