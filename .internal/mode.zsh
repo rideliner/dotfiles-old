@@ -1,10 +1,10 @@
 function user() {
-  printf "\r  [ \033[0;33m?\033[0m ] $1 "
+  printf "\r  [   \033[0;33m?\033[0m  ] $1 "
   return 0
 }
 
 function success() {
-  printf "\r\033[2K  [ \033[0;32mOK\033[0m ] $1\n"
+  printf "\r\033[2K  [  \033[0;32mOK\033[0m  ] $1\n"
   return 0
 }
 
