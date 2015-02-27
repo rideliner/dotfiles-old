@@ -1,10 +1,5 @@
 #!/usr/bin/env zsh
 
-function createLink() {
-
-
-}
-
 function {
   local mod mods src dst link
   local overwrite backup skip action
