@@ -22,9 +22,11 @@ else
     mods=(.internal $mods)
 
     for src ($DOTFILES_PATH/${^mods}/*.bootstrap(N)); do
+      moduleMode "\e[0;36mBOOT\e[0m" "${${src#$DOTFILES_PATH/}%.bootstrap}\n" "\u250F"
+
       source "$src"
 
-      status $? "run $src"
+      status $? "finished bootstrap" "\u2517"
     done
   }
 fi

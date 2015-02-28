@@ -1,28 +1,32 @@
+function moduleMode() {
+  printf "\r\e[2K${3:=\u2523}[ $1 ] $2"
+}
+
 function user() {
-  printf "\r[   \e[0;33m?\e[0m  ] $1 "
+  moduleMode "  \e[0;35m?\e[0m " "$1 " "$*[2, -1]"
   return 0
 }
 
 function success() {
-  printf "\r\e[2K[  \e[0;32mOK\e[0m  ] $1\n"
+  moduleMode " \e[0;32mOK\e[0m " "$1\n" "$*[2, -1]"
   return 0
 }
 
 function fail() {
-  printf "\r\e[2K[ \e[0;31mFAIL\e[0m ] $1\n"
+  moduleMode "\e[0;31mFAIL\e[0m" "$1\n" "$*[2, -1]"
   return 1
 }
 
 function warning() {
-  printf "\r\e[2K[ \e[0;33mWARN\e[0m ] $1\n"
+  moduleMode "\e[0;33mWARN\e[0m" "$1\n" "$*[2, -1]"
   return 2
 }
 
 function status() {
   if [[ $1 -eq 0 ]]; then
-    success "$2"
+    success "$2" "$*[3, -1]"
   else
-    fail "$2"
+    fail "$2" "$*[3, -1]"
   fi
 
   return $?

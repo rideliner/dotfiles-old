@@ -58,7 +58,7 @@ function {
     skip=${skip:-$skip_all}
 
     if [[ "$skip" == "true" ]]; then
-      success "skipped $file"
+      success "skipped ${file#$DOTFILES_PATH/ssl/}"
     else
       certutil -d sql:$HOME/.pki/nssdb -A -t TC -n "${cert}" -i "$file"
       if [[ "$overwrite" == "true" ]]; then

@@ -8,7 +8,7 @@ function {
 
   getModulesAndDependencies mods
   loadMeta mods
-  
+
   for src ($DOTFILES_PATH/${^mods}/*.symlink(N)); do
     mod=${src:h:t}
     link=${src:t:r}
@@ -25,6 +25,8 @@ function {
     else
       dst="$HOME/.$link"
     fi
+
+    dst=$dst:a
 
     if [[ -f "$dst" || -d "$dst" || -L "$dst" ]]; then
       overwrite=
@@ -64,7 +66,7 @@ function {
       skip=${skip:-$skip_all}
 
       if [[ "$skip" == "true" ]]; then
-        success "skipped $src"
+        success "skipped ${src#$DOTFILES_PATH/}"
       elif [[ "$backup" == "true" ]]; then
         mv "$dst" "${dst}.backup"
         status $? "moved $dst to ${dst}.backup"
@@ -76,7 +78,7 @@ function {
 
     if [[ "$skip" != "true" ]]; then  # "false" or empty
       ln -s "$src" "$dst"
-      status $? "linked $src to ${dst:a}"
+      status $? "linked ${src#$DOTFILES_PATH/} to $dst"
     fi
   done
 }
