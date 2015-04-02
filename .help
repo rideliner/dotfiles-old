@@ -31,10 +31,10 @@ function {
         if [[ -f $file ]]; then
           source $file
         else
-          warning "no help file found"
+          warning "no help file found" ' '
         fi
       else
-        fail "not a module"
+        fail "not a module" ' '
       fi
     done
   fi

@@ -1,5 +1,5 @@
 function moduleMode() {
-  printf "\r\e[2K${3:=\u2523}[ $1 ] $2"
+  printf "\r\e[2K${3:-\u2523}[ $1 ] $2"
 }
 
 function user() {
