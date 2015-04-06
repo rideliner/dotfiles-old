@@ -1,0 +1,10 @@
+#!/usr/bin/env zsh
+
+function {
+  cat <<END
+Configuration
+
+  Key Identities
+    zstyle ':ride:ssh' identities <keys>...
+END
+}
