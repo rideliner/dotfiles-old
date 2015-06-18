@@ -18,7 +18,7 @@ Host git.rideliner.net
 
 Host poirot poirot.rideliner.net
     Hostname poirot.rideliner.net
-    Port 22
+    Port 4994
 
 Host oliver oliver.rideliner.net
     Hostname oliver.rideliner.net
