@@ -5,9 +5,12 @@ function {
 Configuration
 
   Prompt Character
-    zstyle ':ride:terminal:prompt' color <color>
+    zstyle ':ride:terminal:prompt' char '<character>'
+
+  Prompt Console Character
+    zstyle ':ride:terminal:prompt' console-char '<character>'
 
   Prompt Color
-    zstyle ':ride:terminal:prompt' char '<character>'
+    zstyle ':ride:terminal:prompt' color '<color>'
 END
 }

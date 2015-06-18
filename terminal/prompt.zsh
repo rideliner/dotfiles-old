@@ -7,6 +7,8 @@ function prompt_character() {
   local char color
 
   zstyle -s ':ride:config:terminal:prompt' char char
+
+  [[ -z $char || $(tty) > "/dev/tty" ]] && zstyle -s ':ride:config:terminal:prompt' console-char char
   [[ -z $char ]] && char='$'
 
   zstyle -s ':ride:config:terminal:prompt' color color
