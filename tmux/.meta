@@ -1,1 +1,3 @@
 zstyle ':ride:symlink:tmux' conf ~/.tmux.conf
+
+zstyle ':ride:depend' tmux terminal
