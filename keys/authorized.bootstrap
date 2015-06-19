@@ -23,8 +23,8 @@ function {
       return $?
     fi
 
-    hex="${data%%=*\ *}"
-    comment="${data#*=*\ }"
+    hex="${data%%=*\ *}" # remove the comment from an ssh public key
+    comment="${data#*=*\ }" # remove all but the comment from an ssh public key
     ssh-keygen -lf =(echo "$data") >>&/dev/null
 
     if [[ $? -ne 0 ]]; then
@@ -32,6 +32,7 @@ function {
       continue
     fi
 
+    # ignore the comment when searching for existing keys
     if [[ ${existing_keys[(i)$hex*]} -le $#existing_keys ]]; then
       keys[$data]="skipped key $comment"
       existing_keys=("${(@)existing_keys:#$hex*}")
