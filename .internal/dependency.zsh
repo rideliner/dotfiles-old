@@ -20,7 +20,7 @@ function resolveAllDependencies() {
   local -a dependencies
   local -Ua total
 
-  for mod in "${(P)1}"; do
+  for mod (${(P)=1}); do
     resolveDependencies $mod dependencies
     total+=($dependencies)
   done

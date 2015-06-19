@@ -1,7 +1,7 @@
 source "${0:A:h}/path.zsh"
 
 function loadMeta() {
-  for src ($DOTFILES_PATH/${(P)^1}/.meta(N)); do
+  for src ($DOTFILES_PATH/${^=1}/.meta(N)); do
     source $src
   done
 }
