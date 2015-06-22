@@ -28,11 +28,11 @@ function {
 
     dst=$dst:a
 
-    if [[ -f "$dst" || -d "$dst" || -L "$dst" ]]; then
-      overwrite=
-      backup=
-      skip=
+    overwrite=
+    backup=
+    skip=
 
+    if [[ -f "$dst" || -d "$dst" || -L "$dst" ]]; then
       if [[ "${dst:A}" == "$src" ]]; then
         skip="true"
       elif [[ "$overwrite_all" == "false" && "$backup_all" == "false" && "$skip_all" == "false" ]]; then
