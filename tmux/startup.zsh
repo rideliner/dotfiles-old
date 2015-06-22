@@ -5,5 +5,5 @@ function emux() {
 
 # only when starting tmux
 if [[ ! -z $TMUX ]]; then
-  tmux set -g status-right-fg $(prompt_color)
+  tmux set -g status-right-fg $(prompt_color) &> /dev/null
 fi
