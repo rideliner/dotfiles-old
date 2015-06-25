@@ -26,10 +26,10 @@ function {
     fi
 
     str="$(cat $file)"
-    existing="$(certutil -L -d sql:$HOME/.pki/nssdb -n "${cert}" -a 2>/dev/null | sed 's/\r$//')"
+    existing="$(certutil -L -d sql:$HOME/.pki/nssdb -n "${cert}" -a 2>/dev/null)"
 
     if [[ $? == 0 ]]; then
-      if [[ "$str" == "$existing" ]]; then
+      if [[ "$str" == "$(echo $existing | sed 's/\r$//')" ]]; then
         skip="true"
       elif [[ "$skip_all" == "false" && "$overwrite_all" == "false" ]]; then
         action=
@@ -60,10 +60,14 @@ function {
     if [[ "$skip" == "true" ]]; then
       success "skipped ${file#$DOTFILES_PATH/ssl/}"
     else
-      certutil -d sql:$HOME/.pki/nssdb -A -t TC -n "${cert}" -i "$file"
       if [[ "$overwrite" == "true" ]]; then
+        certutil -d sql:$HOME/.pki/nssdb -D -n "${cert}"
+        certutil -d sql:$HOME/.pki/nssdb -A -t TC -n "${cert}" -i "$file"
+
         status $? "overwrote '$cert' ssl certificate"
       else
+        certutil -d sql:$HOME/.pki/nssdb -A -t TC -n "${cert}" -i "$file"
+
         status $? "added '$cert' ssl certificate"
       fi
     fi
