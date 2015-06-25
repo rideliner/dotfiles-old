@@ -6,27 +6,19 @@ source "$DOTFILES_PATH/.internal/dependency.zsh"
 
 source ~/.dot
 
-zparseopts -D -E -A Args -- -help:: -usage
+function {
+  local mods src
 
-if (( ${+Args[--usage]} )); then
-  echo "Usage: $0 [--usage|--help[=<module>[,<module>]*]]"
-elif (( ${+Args[--help]} )); then
-  source "$DOTFILES_PATH/.help" ${Args[--help]}
-else
-  function {
-    local mods src
+  getModulesAndDependencies mods
+  loadMeta mods
 
-    getModulesAndDependencies mods
-    loadMeta mods
+  mods=(.internal $mods)
 
-    mods=(.internal $mods)
+  for src ($DOTFILES_PATH/${^mods}/*.bootstrap(N)); do
+    moduleMode "\e[0;36mBOOT\e[0m" "${${src#$DOTFILES_PATH/}%.bootstrap}\n" "\u250F"
 
-    for src ($DOTFILES_PATH/${^mods}/*.bootstrap(N)); do
-      moduleMode "\e[0;36mBOOT\e[0m" "${${src#$DOTFILES_PATH/}%.bootstrap}\n" "\u250F"
+    source "$src"
 
-      source "$src"
-
-      status $? "finished bootstrap" "\u2517"
-    done
-  }
-fi
+    status $? "finished bootstrap" "\u2517"
+  done
+}

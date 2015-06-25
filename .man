@@ -1,0 +1,22 @@
+#!/usr/bin/env zsh
+
+source "${0:A:h}/.internal/path.zsh"
+source "$DOTFILES_PATH/.internal/dependency.zsh"
+
+function {
+  cat << END
+Modules need to be set in ~/.dot
+
+Configuration
+
+  Modules
+    zstyle ':ride' modules <mods>...
+
+Available Modules:
+
+END
+
+  local mods
+  findAllModules mods
+  column =(echo "${(@F)mods}")
+}
