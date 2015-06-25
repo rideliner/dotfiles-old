@@ -1,0 +1,16 @@
+#!/usr/bin/env zsh
+
+function {
+  cat <<END
+Tools
+
+  keys/create.tool
+    Create a user/machine combo public/private key pair.
+
+  keys/info-md5.tool
+    Get info about known public keys, with MD5 fingerprint hashes.
+
+  keys/info-sha256.tool
+    Get info about known public keys, with SHA256 fingerprint hashes.
+END
+}
