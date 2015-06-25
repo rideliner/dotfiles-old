@@ -18,7 +18,7 @@ A module could have files/directories of the following format:
 - `<file>.completion`
   - Contains modifications to the zsh completion system
 
-### Dependencies - Not Yet Implemented
+### Dependencies
 
 Modules are loaded in the order that they are specified in the .dot file. Any dependencies are loaded immediately prior to the first module in the list that depends on it.
 
