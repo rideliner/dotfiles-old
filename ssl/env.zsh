@@ -1,3 +1,10 @@
-typeset -UTx SSL_CERT_DIR ssl_cert_dir
+if [[ $UID != 0 ]]; then
+  function() {
+    typeset -UTx SSL_CERT_DIR ssl_cert_dir
 
-ssl_cert_dir+=("$DOTFILES_PATH/ssl")
+    local ssl_path
+    zstyle -s ':ride:symlink:default:ssl:*' path ssl_path
+
+    ssl_cert_dir+=($ssl_path)
+  }
+fi

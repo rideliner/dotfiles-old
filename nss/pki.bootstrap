@@ -3,7 +3,7 @@
 function {
   local str file cert
   local action overwrite_all=false skip_all=false overwrite skip
-  zstyle -a ':ride:config:ssl' certificates certs
+  zstyle -a ':ride:config:nss' certificates certs
 
   if [[ $#certs -eq 0 ]]; then
     warning 'no certificates set to be loaded'
@@ -59,7 +59,7 @@ function {
     skip=${skip:-$skip_all}
 
     if [[ "$skip" == "true" ]]; then
-      success "skipped ${file#$DOTFILES_PATH/ssl/}"
+      success "skipped ${${file#$DOTFILES_PATH/ssl/}%.symlink}"
     else
       if [[ "$overwrite" == "true" ]]; then
         certutil -d sql:$HOME/.pki/nssdb -D -n "${cert}"
