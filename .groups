@@ -1,0 +1,4 @@
+zstyle ':ride:module-group' basic       terminal tmux git vim
+zstyle ':ride:module-group' x-server    x fonts nss
+zstyle ':ride:module-group' ssh-server  keys hush
+zstyle ':ride:module-group' dev         gem ruby

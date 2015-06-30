@@ -2,18 +2,45 @@ source "${0:A:h}/modules.zsh"
 source "$DOTFILES_PATH/.internal/mode.zsh"
 
 function getModulesAndDependencies() {
-  local _some _all
+  local _some _all _mixed
 
-  getModules _some
+  getModules _mixed
+  resolveModuleGroups _mixed _some
 
   if [[ ${#_some} -eq 0 ]]; then
-    fail 'No modules have been set through zstyle.'
-    exit 1
+    fail 'No modules or non-empty module groups have been set through zstyle.' ' '
+    return $?
   fi
 
   resolveAllDependencies _some _all
 
   eval "$1=($_all)"
+}
+
+function resolveModuleGroups() {
+  local -Ua splattered simple
+
+  source "$DOTFILES_PATH/.groups"
+
+  for mod (${(P)=1}); do
+    if [[ $mod == '^'* ]]; then
+      if zstyle -T ':ride:module-group' ${mod#^}; then
+        warning "The module group $mod does not exist."
+        continue
+      fi
+
+      zstyle -a ':ride:module-group' ${mod#^} simple
+      if [[ $#simple == 0 ]]; then
+        warning "The module group $mod is empty."
+      else
+        splattered+=($simple)
+      fi
+    else
+      splattered+=($mod)
+    fi
+  done
+
+  eval "$2=($splattered)"
 }
 
 function resolveAllDependencies() {

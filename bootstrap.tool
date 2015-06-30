@@ -4,7 +4,11 @@ source "${0:A:h}/.internal/path.zsh"
 source "$DOTFILES_PATH/.internal/mode.zsh"
 source "$DOTFILES_PATH/.internal/dependency.zsh"
 
-source ~/.dot
+if [[ -s ~/.dot ]]; then
+  source ~/.dot
+else
+  warning "$HOME/.dot does not exist or is empty." ' '
+fi
 
 function {
   local mods src
