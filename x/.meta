@@ -1,2 +1,2 @@
-zstyle ':ride:symlink:x' initrc ~/.xinitrc
-zstyle ':ride:symlink:x' resources ~/.Xresources
+zstyle ':ride:symlink:default:x:initrc' name .xinitrc
+zstyle ':ride:symlink:default:x:resources' name .Xresources

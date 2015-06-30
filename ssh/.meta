@@ -1,1 +1,2 @@
-zstyle ':ride:symlink:ssh' config ~/.ssh/config
+zstyle ':ride:symlink:default:ssh:config' path ~/.ssh
+zstyle ':ride:symlink:default:ssh:config' name config

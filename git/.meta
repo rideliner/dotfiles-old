@@ -1,2 +1,2 @@
-zstyle ':ride:symlink:git' config ~/.gitconfig
-zstyle ':ride:symlink:git' ignore ~/.gitignore
+zstyle ':ride:symlink:default:git:config' name .gitconfig
+zstyle ':ride:symlink:default:git:ignore' name .gitignore

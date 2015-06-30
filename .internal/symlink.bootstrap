@@ -1,10 +1,9 @@
 #!/usr/bin/env zsh
 
 function {
-  local mod mods src dst link
+  local mod mods src dst link dir name
   local overwrite backup skip action
   local overwrite_all=false backup_all=false skip_all=false
-  local origLink overLink
 
   getModulesAndDependencies mods
   loadMeta mods
@@ -13,26 +12,52 @@ function {
     mod=${src:h:t}
     link=${src:t:r}
 
-    zstyle -T ":ride:symlink:$mod" $link
-    origLink=$?
-    zstyle -T ":ride:symlink:override:$mod" $link
-    overLink=$?
-
-    if [ $overLink -eq 1 ]; then
-      zstyle -s ":ride:symlink:override:$mod" $link dst
-    elif [ $origLink -eq 1 ]; then
-      zstyle -s ":ride:symlink:$mod" $link dst
+    if ! zstyle -T ":ride:symlink:override:$mod:$link" path; then
+      zstyle -s ":ride:symlink:override:$mod:$link" path dir
+    elif ! zstyle -T ":ride:symlink:default:$mod:$link" path; then
+      zstyle -s ":ride:symlink:default:$mod:$link" path dir
     else
-      dst="$HOME/.$link"
+      dir="$HOME"
     fi
 
+    if ! zstyle -T ":ride:symlink:override:$mod:$link" name; then
+      zstyle -s ":ride:symlink:override:$mod:$link" name name
+    elif ! zstyle -T ":ride:symlink:default:$mod:$link" name; then
+      zstyle -s ":ride:symlink:default:$mod:$link" name name
+    else
+      name=".?"
+    fi
+
+    dst="$dir/${name/\?/$link}"
     dst=$dst:a
 
     overwrite=
     backup=
     skip=
 
-    if [[ -f "$dst" || -d "$dst" || -L "$dst" ]]; then
+    if [[ ! -e "${dst:h}" ]]; then
+      # base directory doesn't exist
+      user "Directory doesn't exist: ${dst:h}, do you want to create it? [Y/N]"
+      while [[ "$action" == "" ]]; do
+        read -s -k 1 "action"
+
+        case "$action" in
+          n ) ;&
+          N )
+            ;;
+          y ) ;&
+          Y )
+            mkdir -p "${dst:h}"
+            ;;
+          * )
+            action="";;
+        esac
+      done
+    elif [[ ! -d "${dst:h}" ]]; then
+      # base "directory" isn't a directory
+      fail "${dst:h} exists, but is not a directory. Cannot create a symlink at $dst."
+      return $?
+    elif [[ -f "$dst" || -d "$dst" || -L "$dst" ]]; then
       if [[ "${dst:A}" == "$src" ]]; then
         skip="true"
       elif [[ "$overwrite_all" == "false" && "$backup_all" == "false" && "$skip_all" == "false" ]]; then

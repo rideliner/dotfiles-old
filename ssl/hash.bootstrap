@@ -1,10 +1,15 @@
 #!/usr/bin/env zsh
 
+source "${0:A:h}/.meta"
+
 function {
+  local ssl_path
+  zstyle -s ':ride:symlink:default:ssl:*' path ssl_path
+
   if (( $+commands[c_rehash] )) ; then
-    c_rehash "$DOTFILES_PATH/ssl" >/dev/null
+    c_rehash "$ssl_path" >/dev/null
   elif (( $+commands[cacertdir_rehash] )); then
-    cacertdir_rehash "$DOTFILES_PATH/ssl" >/dev/null
+    cacertdir_rehash "$ssl_path" >/dev/null
   else
     fail 'No command found to hash ssl certificates'
     return $?

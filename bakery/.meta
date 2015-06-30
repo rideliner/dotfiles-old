@@ -1,1 +1,1 @@
-zstyle ':ride:symlink:bakery' self ~/.bakery
+zstyle ':ride:symlink:default:bakery:self' name .bakery

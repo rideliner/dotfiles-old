@@ -1,3 +1,3 @@
 zstyle ':ride:depend' colostate ssh
 
-zstyle ':ride:symlink:colostate' self ~/.colostate
+zstyle ':ride:symlink:default:colostate:self' name .colostate

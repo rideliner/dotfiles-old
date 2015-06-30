@@ -1,0 +1,8 @@
+
+if [[ $UID == 0 ]]; then
+  zstyle ':ride:symlink:default:ssl:*' path /etc/ssl/certs
+else
+  zstyle ':ride:symlink:default:ssl:*' path ~/.ssl
+fi
+
+zstyle ':ride:symlink:default:ssl:*' name '?'

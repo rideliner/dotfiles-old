@@ -1,1 +1,2 @@
-zstyle ':ride:symlink:fonts' self ~/.local/share/fonts
+zstyle ':ride:symlink:default:fonts:self' path ~/.local/share
+zstyle ':ride:symlink:default:fonts:self' name fonts

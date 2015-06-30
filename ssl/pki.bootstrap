@@ -7,6 +7,7 @@ function {
 
   if [[ $#certs -eq 0 ]]; then
     warning 'no certificates set to be loaded'
+    return 0
   fi
 
   if [[ ! -s "$HOME/.pki/nssdb" ]]; then
@@ -18,7 +19,7 @@ function {
     skip=
     overwrite=
 
-    file="$DOTFILES_PATH/ssl/${cert}.pem"
+    file="$DOTFILES_PATH/ssl/${cert}.pem.symlink"
     if [[ ! -s "$file" ]]; then
       fail "could not find $file"
 
