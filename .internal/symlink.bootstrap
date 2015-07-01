@@ -42,11 +42,9 @@ function {
         read -s -k 1 "action"
 
         case "$action" in
-          n ) ;&
-          N )
+          n | N )
             ;;
-          y ) ;&
-          Y )
+          y | Y )
             mkdir -p "${dst:h}"
             ;;
           * )
