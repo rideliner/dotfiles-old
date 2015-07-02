@@ -4,10 +4,10 @@ source "${0:A:h}/.internal/path.zsh"
 source "$DOTFILES_PATH/.internal/mode.zsh"
 source "$DOTFILES_PATH/.internal/dependency.zsh"
 
-if [[ -s ~/.dot ]]; then
-  source ~/.dot
+if [[ -s ~/.dot.conf ]]; then
+  source ~/.dot.conf
 else
-  warning "$HOME/.dot does not exist or is empty." ' '
+  warning "$HOME/.dot.conf does not exist or is empty." ' '
 fi
 
 function {

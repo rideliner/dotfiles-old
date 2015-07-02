@@ -11,7 +11,7 @@ if (( ${+Args[--usage]} )); then
   echo "--all"
   echo "    Show modules that don't have dependencies."
   echo "--dot"
-  echo "    Load modules from ~/.dot."
+  echo "    Load modules from ~/.dot.conf."
   echo "<module>*"
   echo "    Space separated list of modules to check the dependencies of."
 else
@@ -19,7 +19,7 @@ else
     local i mods deps
 
     if (( ${+Args[--dot]} )); then
-      source "$HOME/.dot"
+      source "$HOME/.dot.conf"
       getModules mods
     elif [[ $# -eq 0 ]]; then
       findAllModules mods

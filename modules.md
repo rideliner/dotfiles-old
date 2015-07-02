@@ -20,7 +20,7 @@ A module could have files/directories of the following format:
 
 ### Dependencies
 
-Modules are loaded in the order that they are specified in the .dot file. Any dependencies are loaded immediately prior to the first module in the list that depends on it.
+Modules are loaded in the order that they are specified in the .dot.conf file. Any dependencies are loaded immediately prior to the first module in the list that depends on it.
 
 Prerequisites will be recursively checked.
 NOTE: This could make a dependency be loaded earlier than expected.
@@ -75,7 +75,7 @@ WARNING: Unexpected results if a file symlink and a directory symlink have the s
 
 The amount of configuration offered by each module will vary, possibly with no configuration offered.
 
-All configuration should be stored in the .dot file in the following format:
+All configuration should be stored in the .dot.conf file in the following format:
 
 ```
 zstyle ':ride:config:<module>' <key> <value(s)>...

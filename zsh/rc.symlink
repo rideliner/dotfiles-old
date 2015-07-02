@@ -1,6 +1,6 @@
 
-[[ -s "$HOME/.dot" ]] && source "$HOME/.dot"
-[[ -s "$HOME/.local-rc" ]] && source "$HOME/.local-rc"
+[[ -s "$HOME/.dot.conf" ]] && source "$HOME/.dot.conf"
+[[ -s "$HOME/.dot.pre" ]] && source "$HOME/.dot.pre"
 
 source $(echo ${ZDOTDIR:-$HOME}/.zshrc(:A:h:h))/.internal/path.zsh
 
@@ -52,7 +52,7 @@ done
 
 unset mods module file config_files path_files completion_files
 
-[[ -s "$HOME/.local+rc" ]] && source "$HOME/.local+rc"
+[[ -s "$HOME/.dot.post" ]] && source "$HOME/.dot.post"
 
 # remove missing path directories
 path=($^path(N))
