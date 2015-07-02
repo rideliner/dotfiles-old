@@ -13,13 +13,13 @@ alias ....='cd ../../..'
 alias -- -='cd -'
 alias /='cd /'
 
-alias clear='[ "$TMUX" != "" ] && tmux send-keys -R \; clear-history || echo -ne "\033c"'
-alias exit='[ "$TMUX" != "" ] && tmux kill-pane \; select-layout || \exit'
+alias clear='(( $+TMUX )) && tmux send-keys -R \; clear-history || echo -ne "\033c"'
+alias exit='(( $+TMUX )) && tmux kill-pane \; select-layout || \exit'
 alias make='make -j $PROCESSORS'
 
 alias ls='ls --color=tty'
 
-alias top='htop'
+(( $+commands[htop] )) && alias top='htop'
 
 alias path='echo -e ${PATH//:/\\n}'
 
