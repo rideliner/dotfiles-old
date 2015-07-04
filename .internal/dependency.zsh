@@ -2,7 +2,7 @@ source "${0:A:h}/modules.zsh"
 source "$DOTFILES_PATH/.internal/mode.zsh"
 
 function getModulesAndDependencies() {
-  local _some _all _mixed
+  local _some _all _mixed _final
 
   getModules _mixed
   resolveModuleGroups _mixed _some
@@ -14,7 +14,39 @@ function getModulesAndDependencies() {
 
   resolveAllDependencies _some _all
 
-  eval "$1=($_all)"
+  checkRequirements _all _final
+
+  eval "$1=($_final)"
+}
+
+function checkRequirements() {
+  local -a _resolvedRequirements
+  local _reqs _valid
+
+  for mod (${(P)=1}); do
+    _valid="true"
+
+    zstyle -a ':ride:requirements' $mod _reqs
+
+    for req ($_reqs); do
+      case $req in
+        privileged )
+          if [[ $UID != 0 ]]; then
+            _valid="false"
+            warning "The '$mod' module requires root privileges. Skipping." ' '
+          fi
+          ;;
+        * )
+          warning "'$req' is not a recognized requirement. Ignoring." ' '
+      esac
+    done
+
+    if [[ $_valid == "true" ]]; then
+      _resolvedRequirements+=($mod)
+    fi
+  done
+
+  eval "$2=($_resolvedRequirements)"
 }
 
 function resolveModuleGroups() {
