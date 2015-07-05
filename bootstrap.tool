@@ -11,7 +11,7 @@ else
 fi
 
 function {
-  local mods src
+  local mods src name
 
   getModulesAndDependencies mods
   loadMeta mods
@@ -19,10 +19,11 @@ function {
   mods=(.internal $mods)
 
   for src ($DOTFILES_PATH/${^mods}/*.bootstrap(N)); do
-    moduleMode "\e[0;36mBOOT\e[0m" "${${src#$DOTFILES_PATH/}%.bootstrap}\n" "\u250F"
+    name="${${src#$DOTFILES_PATH/}%.bootstrap}"
+    moduleMode "\e[0;36mBOOT\e[0m" "$name\n" "\u250F"
 
     source "$src"
 
-    status $? "finished bootstrap" "\u2517"
+    status $? "finished $name bootstrap" "\u2517"
   done
 }
