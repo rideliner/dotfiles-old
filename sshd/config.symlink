@@ -1,0 +1,57 @@
+
+Port 4949
+AddressFamily any
+ListenAddress 0.0.0.0
+ListenAddress ::
+
+Protocol 2
+
+HostKey /etc/ssh/ssh_host_ed25519_key
+HostKey /etc/ssh/ssh_host_rsa_key
+
+AllowGroups ssh-user
+
+AuthorizedKeysFile .ssh/authorized_keys
+
+# This is only needed until a reliable way of
+# keeping ZeroTier connections alive is found
+ClientAliveInterval 105 # Default is 0 (i.e. off)
+ClientAliveCountMax 3
+TCPKeepAlive yes
+
+Compression delayed
+PidFile /run/sshd.pid
+X11Forwarding yes
+GatewayPorts no
+PrintMotd no
+PrintLastLog yes #?
+UsePrivilegeSeparation yes
+StrictModes yes
+PermitTTY yes
+UseDNS yes
+UseLogin no
+UsePAM yes #?
+
+X11DisplayOffset 10
+X11Forwarding yes
+X11UseLocalhost yes
+
+IgnoreUserKnownHosts no
+LoginGraceTime 120
+MaxAuthTries 4
+MaxSessions 10
+MaxStartups 2:50:5
+
+PermitUserEnvironment no
+PermitRootLogin no
+PermitEmptyPasswords no
+PermitTunnel no
+PasswordAuthentication no
+PubkeyAuthentication yes
+ChallengeResponseAuthentication no
+
+KexAlgorithms curve25519-sha256@libssh.org,diffie-hellman-group-exchange-sha256
+Ciphers chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr
+MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,hmac-ripemd160-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-512,hmac-sha2-256,hmac-ripemd160,umac-128@openssh.com
+
+Subsystem sftp /usr/lib/ssh/sftp-server
