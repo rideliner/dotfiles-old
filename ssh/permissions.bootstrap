@@ -1,15 +1,10 @@
 #!/usr/bin/env zsh
 
 function {
-  local file="$DOTFILES_PATH/ssh/config.symlink"
-
-  if [[ ! -r $file ]]; then
-    fail "You do not have read permissions for $file"
-    return $?
-  fi
-
-  if [[ -w $file && ! -O $file ]]; then
-    fail "Only the owner of $file should have write permissions"
-    return $?
+  if [[ `stat -c '%a' $DOTFILES_PATH/ssh/config.symlink` == '640' ]]; then
+    success 'permissions already set' ' '
+  else
+    chmod 0640 $DOTFILES_PATH/ssh/config.symlink
+    status $? 'fixed permissions to 0640' ' '
   fi
 }
