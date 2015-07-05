@@ -6,6 +6,14 @@ function {
   local ssl_path
   zstyle -s ':ride:symlink:default:ssl:*' path ssl_path
 
+  if [[ ! -e $ssl_path ]]; then
+    fail "$ssl_path doesn't exist."
+    return $?
+  elif [[ ! -d $ssl_path ]]; then
+    fail "$ssl_path isn't a directory."
+    return $?
+  fi
+
   if (( $+commands[c_rehash] )) ; then
     c_rehash "$ssl_path" >/dev/null
   elif (( $+commands[cacertdir_rehash] )); then

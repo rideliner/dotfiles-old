@@ -2,9 +2,9 @@
 
 function {
   if [[ `stat -c '%a' $DOTFILES_PATH/ssh/config.symlink` == '640' ]]; then
-    success 'permissions already set' ' '
+    success 'permissions already set'
   else
     chmod 0640 $DOTFILES_PATH/ssh/config.symlink
-    status $? 'fixed permissions to 0640' ' '
+    status $? 'fixed permissions to 0640'
   fi
 }

@@ -43,6 +43,8 @@ function {
 
         case "$action" in
           n | N )
+            fail "skipped ${dst} because you chose not to create the directory for it."
+            action='skip'
             ;;
           y | Y )
             mkdir -p "${dst:h}"
@@ -51,6 +53,10 @@ function {
             action="";;
         esac
       done
+
+      if [[ "$action" == 'skip' ]]; then
+        continue;
+      fi
     elif [[ ! -d "${dst:h}" ]]; then
       # base "directory" isn't a directory
       fail "${dst:h} exists, but is not a directory. Cannot create a symlink at $dst."
