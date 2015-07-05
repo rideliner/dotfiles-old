@@ -9,6 +9,6 @@ if [[ -f ~/.ssh/id_ed25519 ]]; then
 elif [[ -f $DOTFILES_PATH/keys/${file}.key ]]; then
   echo "ERROR: $DOTFILES_PATH/keys/${file}.key already exists."
 else
-  ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519 -c "$file" -o -a 100
+  ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519 -C "$file" -o -a 100
   cp ~/.ssh/id_ed25519.pub $DOTFILES_PATH/keys/${file}.key
 fi

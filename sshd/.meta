@@ -1,2 +1,3 @@
-
+zstyle ':ride:symlink:default:sshd:config' path /etc/ssh
+zstyle ':ride:symlink:default:sshd:config' name sshd_config
 zstyle ':ride:requirements' sshd privileged
