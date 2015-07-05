@@ -61,7 +61,7 @@ function {
       elif [[ "$overwrite_all" == "false" && "$backup_all" == "false" && "$skip_all" == "false" ]]; then
         action=
 
-        user "File already exists: ${dst:t}, what do you want to do? [s]kip, [S]kip all, [o]verwrite, [O]verwrite all, [b]ackup, [B]ackup all?"
+        user "File already exists: ${dst}, what do you want to do? [s]kip, [S]kip all, [o]verwrite, [O]verwrite all, [b]ackup, [B]ackup all?"
         while [[ "$action" == "" ]]; do
           read -s -k 1 "action"
 
