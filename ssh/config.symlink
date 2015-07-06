@@ -26,7 +26,6 @@ Host poirot poirot.rideliner.net
 
 Host oliver oliver.rideliner.net
     Hostname oliver.rideliner.net
-    Port 4949
 
 Host marple marple.rideliner.net
     Hostname marple.rideliner.net
@@ -45,5 +44,6 @@ Host *.cs.colostate.edu
     ForwardAgent yes
 
 Host *.rideliner.net
+    Port 4949
     PasswordAuthentication no
     ForwardAgent yes
