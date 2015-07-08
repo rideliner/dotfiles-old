@@ -6,6 +6,7 @@ alias mkdir='mkdir -p'
 alias md='mkdir'
 alias rd='rmdir'
 alias d='dirs -v | head -10'
+alias disk='du -asch *(N) .*(N) | sort -h'
 
 alias ..='cd ..'
 alias ...='cd ../..'
@@ -28,5 +29,3 @@ alias ping='ping -c4'
 alias pong='ping 8.8.8.8'
 
 alias @='pwd'
-
-alias nano='vim'
