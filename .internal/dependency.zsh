@@ -55,13 +55,13 @@ function resolveModuleGroups() {
   source "$DOTFILES_PATH/.groups"
 
   for mod (${(P)=1}); do
-    if [[ $mod == '^'* ]]; then
-      if zstyle -T ':ride:module-group' ${mod#^}; then
+    if [[ $mod == '%'* ]]; then
+      if zstyle -T ':ride:module-group' ${mod#%}; then
         warning "The module group $mod does not exist."
         continue
       fi
 
-      zstyle -a ':ride:module-group' ${mod#^} simple
+      zstyle -a ':ride:module-group' ${mod#%} simple
       if [[ $#simple == 0 ]]; then
         warning "The module group $mod is empty."
       else
