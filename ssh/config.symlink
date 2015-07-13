@@ -1,6 +1,5 @@
-
 CanonicalizeHostname yes
-CanonicalDomains ip.rideliner.net
+CanonicalDomains vpn.rideliner.net
 
 Host *
     VisualHostKey yes
@@ -29,7 +28,7 @@ Host *.cs.colostate.edu *.rideliner.net
     IdentityFile ~/.ssh/id_ed25519
 
 Host git.rideliner.net
-    Hostname poirot.ip.rideliner.net
+    Hostname poirot.vpn.rideliner.net
 
 Host *.rideliner.net
     Port 4949
