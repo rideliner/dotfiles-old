@@ -1,5 +1,5 @@
 CanonicalizeHostname yes
-CanonicalDomains vpn.rideliner.net
+CanonicalDomains vpn.rideliner.net cs.colostate.edu
 
 Host *
     VisualHostKey yes
