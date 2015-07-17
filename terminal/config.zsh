@@ -49,6 +49,7 @@ unsetopt check_jobs             # don't repot on jobs when shell exit
   setopt auto_name_dirs         #
   setopt multios                #
   setopt extended_glob          #
+  setopt dotglob                # globbing sees hidden files
   setopt pushdminus             #
 unsetopt clobber                #
 unsetopt case_glob              # make globbing case insensitivee
