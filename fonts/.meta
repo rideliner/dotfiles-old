@@ -1,11 +1,10 @@
-[[ $UID != 0 ]] && zstyle ':ride:fonts' enabled true
-
-case `hostname -f` in
-  *.cs.colostate.edu )
-    zstyle ':ride:fonts:symlink:self' path ~
-    zstyle ':ride:fonts:symlink:self' name .fonts
-    ;;
-  * )
-    zstyle ':ride:fonts:symlink:self' path ~/.local/share
-    zstyle ':ride:fonts:symlink:self' name fonts
-esac
+if [[ $UID != 0 ]]; then
+  case `hostname -f` in
+    hastings* | marple* )
+      zstyle ':ride:fonts:symlink:self' path ~/.local/share
+      zstyle ':ride:fonts:symlink:self' name fonts
+      ;&
+    *.cs.colostate.edu )
+      zstyle ':ride:fonts' enabled true
+  esac
+fi
