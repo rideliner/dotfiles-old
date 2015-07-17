@@ -6,7 +6,7 @@ alias mkdir='mkdir -p'
 alias md='mkdir'
 alias rd='rmdir'
 alias d='dirs -v | head -10'
-alias disk='du -asch *(N) .*(N) | sort -h'
+alias disk='du -sch *(N) | sort -h'
 
 alias ..='cd ..'
 alias ...='cd ../..'
