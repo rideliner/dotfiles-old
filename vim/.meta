@@ -1,1 +1,3 @@
 zstyle ':ride:vim' enabled true
+
+zstyle ':ride:vim:symlink:rc' name '.!?'

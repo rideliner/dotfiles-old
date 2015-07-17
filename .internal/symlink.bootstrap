@@ -23,7 +23,7 @@ function {
       name=".?"
     fi
 
-    dst="$dir/${name/\?/$link}"
+    dst="$dir/${${name/\?/$link}/\!/$mod}"
     dst=$dst:a
 
     overwrite=
