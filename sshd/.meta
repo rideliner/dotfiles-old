@@ -8,4 +8,4 @@ fi
 zstyle ':ride:sshd' requirements privileged
 
 zstyle ':ride:sshd:symlink:config' path /etc/ssh
-zstyle ':ride:sshd:symlink:config' name sshd_config
+zstyle ':ride:sshd:symlink:config' name '!_?'

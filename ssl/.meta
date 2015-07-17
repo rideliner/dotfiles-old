@@ -5,7 +5,7 @@ else
   case `hostname -f` in
     *.cs.colostate.edu )
       zstyle ':ride:ssl' enabled true
-      zstyle ':ride:ssl:symlink:*' path ~/.ssl
+      zstyle ':ride:ssl:symlink:*' path '~/.!'
   esac
 fi
 

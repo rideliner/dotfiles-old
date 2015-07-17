@@ -1,6 +1,10 @@
 #!/usr/bin/env zsh
 
 function {
+  function resolve() {
+    eval "$1=\"${${${(P)1/\?/$2}/\!/$3}/\~/$HOME}\""
+  }
+
   local mod mods src dst link dir name
   local overwrite backup skip action
   local overwrite_all=false backup_all=false skip_all=false
@@ -14,7 +18,7 @@ function {
     if ! zstyle -T ":ride:${mod}:symlink:${link}" path; then
       zstyle -s ":ride:${mod}:symlink:${link}" path dir
     else
-      dir="$HOME"
+      dir="~"
     fi
 
     if ! zstyle -T ":ride:${mod}:symlink:${link}" name; then
@@ -23,7 +27,10 @@ function {
       name=".?"
     fi
 
-    dst="$dir/${${name/\?/$link}/\!/$mod}"
+    resolve dir $link $mod
+    resolve name $link $mod
+
+    dst="$dir/$name"
     dst=$dst:a
 
     overwrite=

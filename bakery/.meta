@@ -1,1 +1,1 @@
-zstyle ':ride:bakery:symlink:self' name .bakery
+zstyle ':ride:bakery:symlink:self' name '.!'

@@ -5,4 +5,4 @@ if [[ $UID != 0 ]]; then
   esac
 fi
 
-zstyle ':ride:x:symlink:resources' name .Xresources
+zstyle ':ride:x:symlink:resources' name '.X?'

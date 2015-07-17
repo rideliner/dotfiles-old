@@ -1,4 +1,4 @@
 [[ $UID != 0 ]] && zstyle ':ride:git' enabled true
 
-zstyle ':ride:git:symlink:config' name .gitconfig
-zstyle ':ride:git:symlink:ignore' name .gitignore
+zstyle ':ride:git:symlink:config' name '.!?'
+zstyle ':ride:git:symlink:ignore' name '.!?'

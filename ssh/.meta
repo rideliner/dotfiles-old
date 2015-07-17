@@ -1,6 +1,6 @@
 [[ $UID != 0 ]] && zstyle ':ride:ssh' enabled true
 
-zstyle ':ride:ssh:symlink:config' path ~/.ssh
-zstyle ':ride:ssh:symlink:config' name config
+zstyle ':ride:ssh:symlink:config' path '~/.!'
+zstyle ':ride:ssh:symlink:config' name '?'
 
 zstyle ':ride:ssh' identities id_ed25519

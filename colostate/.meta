@@ -7,4 +7,4 @@ fi
 
 zstyle ':ride:colostate' depend ssh
 
-zstyle ':ride:colostate:symlink:self' name .colostate
+zstyle ':ride:colostate:symlink:self' name '.!'
