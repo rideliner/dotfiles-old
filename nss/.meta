@@ -1,3 +1,6 @@
-[[ $UID != 0 ]] && zstyle ':ride:nss' enabled true
+case `hostname -f` in
+  *.cs.colostate.edu )
+    zstyle ':ride:nss' enabled true
+esac
 
 zstyle ':ride:nss' certificates ca.rideliner.net

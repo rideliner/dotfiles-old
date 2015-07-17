@@ -14,7 +14,9 @@ function {
     return $?
   fi
 
-  if (( $+commands[c_rehash] )) ; then
+  if (( $+commands[trust] && $UID == 0 )) ; then
+    trust extract-compat >/dev/null
+  elif (( $+commands[c_rehash] )) ; then
     c_rehash "$ssl_path" >/dev/null
   elif (( $+commands[cacertdir_rehash] )); then
     cacertdir_rehash "$ssl_path" >/dev/null
