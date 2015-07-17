@@ -1,6 +1,4 @@
-function() {
-  zstyle ':ride:tmux' enabled true
-  zstyle ':ride:tmux' depend terminal
+zstyle ':ride:tmux' enabled true
+zstyle ':ride:tmux' depend terminal
 
-  zstyle ':ride:tmux:symlink:conf' name .tmux.conf
-}
+zstyle ':ride:tmux:symlink:conf' name .tmux.conf
