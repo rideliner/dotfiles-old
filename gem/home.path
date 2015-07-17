@@ -1,7 +1,5 @@
-if (( $+commands[ruby] )); then
-  path=("$(ruby -e 'print Gem.user_dir')/bin" $path)
-fi
-
-if (( $+commands[rbx] )); then
-  path=("$(rbx -e 'print Gem.user_dir')/bin" $path)
-fi
+for cmd in ruby rbx; do
+  if (( $+commands[$cmd] )); then
+    path=("$($commands[$cmd] -e 'print Gem.user_dir')/bin" $path)
+  fi
+done
