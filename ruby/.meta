@@ -1,0 +1,6 @@
+if [[ $UID != 0 ]]; then
+  case `hostname -f` in
+    oliver* | marple* | hastings* | *.cs.colostate.edu )
+      zstyle ':ride:ruby' enabled true
+  esac
+fi

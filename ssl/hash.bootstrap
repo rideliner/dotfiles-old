@@ -4,7 +4,7 @@ source "${0:A:h}/.meta"
 
 function {
   local ssl_path
-  zstyle -s ':ride:symlink:default:ssl:*' path ssl_path
+  zstyle -s ':ride:ssl:symlink:*' path ssl_path
 
   if [[ ! -e $ssl_path ]]; then
     fail "$ssl_path doesn't exist."

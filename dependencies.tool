@@ -3,23 +3,22 @@
 source "${0:A:h}/.internal/path.zsh"
 source "$DOTFILES_PATH/.internal/dependency.zsh"
 
-zparseopts -D -E -A Args -- -all -dot -usage
+zparseopts -D -E -A Args -- -all -enabled -usage
 
 if (( ${+Args[--usage]} )); then
   echo "Usage: $0 [--usage] [--dot|<module>*] [--all]"
   echo
   echo "--all"
   echo "    Show modules that don't have dependencies."
-  echo "--dot"
-  echo "    Load modules from ~/.dot.conf."
+  echo "--enabled"
+  echo "    Only check dependencies of enabled modules."
   echo "<module>*"
   echo "    Space separated list of modules to check the dependencies of."
 else
   function {
     local i mods deps
 
-    if (( ${+Args[--dot]} )); then
-      source "$HOME/.dot.conf"
+    if (( ${+Args[--enabled]} )); then
       getModules mods
     elif [[ $# -eq 0 ]]; then
       findAllModules mods

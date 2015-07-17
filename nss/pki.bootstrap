@@ -3,7 +3,7 @@
 function {
   local str file cert
   local action overwrite_all=false skip_all=false overwrite skip
-  zstyle -a ':ride:config:nss' certificates certs
+  zstyle -a ':ride:nss' certificates certs
 
   if [[ $#certs -eq 0 ]]; then
     warning 'no certificates set to be loaded'

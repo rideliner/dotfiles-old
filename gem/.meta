@@ -1,3 +1,10 @@
-zstyle ':ride:depend' gem ruby
+if [[ $UID != 0 ]]; then
+  case `hostname -f` in
+    oliver* | marple* | hastings* | *.cs.colostate.edu )
+      zstyle ':ride:gem' enabled true
+  esac
+fi
 
-zstyle ':ride:symlink:default:gem:rc' name .gemrc
+zstyle ':ride:gem' depend ruby
+
+zstyle ':ride:gem:symlink:rc' name .gemrc

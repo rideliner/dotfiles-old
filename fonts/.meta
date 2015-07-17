@@ -1,2 +1,11 @@
-zstyle ':ride:symlink:default:fonts:self' path ~/.local/share
-zstyle ':ride:symlink:default:fonts:self' name fonts
+[[ $UID != 0 ]] && zstyle ':ride:fonts' enabled true
+
+case `hostname -f` in
+  *.cs.colostate.edu )
+    zstyle ':ride:fonts:symlink:self' path ~
+    zstyle ':ride:fonts:symlink:self' name .fonts
+    ;;
+  * )
+    zstyle ':ride:fonts:symlink:self' path ~/.local/share
+    zstyle ':ride:fonts:symlink:self' name fonts
+esac

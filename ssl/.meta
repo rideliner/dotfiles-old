@@ -1,8 +1,13 @@
-
 if [[ $UID == 0 ]]; then
-  zstyle ':ride:symlink:default:ssl:*' path /etc/ssl/certs
+  # disabled temporarily, see https://www.archlinux.org/news/ca-certificates-update/
+#  zstyle ':ride:ssl' enabled true
+  zstyle ':ride:ssl:symlink:*' path /etc/ssl/certs
 else
-  zstyle ':ride:symlink:default:ssl:*' path ~/.ssl
+  case `hostname -f` in
+    *.cs.colostate.edu )
+      zstyle ':ride:ssl' enabled true
+      zstyle ':ride:ssl:symlink:*' path ~/.ssl
+  esac
 fi
 
-zstyle ':ride:symlink:default:ssl:*' name '?'
+zstyle ':ride:ssl:symlink:*' name '?'

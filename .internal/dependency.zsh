@@ -1,14 +1,13 @@
 source "${0:A:h}/modules.zsh"
-source "$DOTFILES_PATH/.internal/mode.zsh"
+source "$DOTFILES_PATH/.internal/log.zsh"
 
-function getModulesAndDependencies() {
-  local _some _all _mixed _final
+function getModulesResolved() {
+  local _some _all _final
 
-  getModules _mixed
-  resolveModuleGroups _mixed _some
+  getModules _some
 
   if [[ ${#_some} -eq 0 ]]; then
-    fail 'No modules or non-empty module groups have been set through zstyle.' ' '
+    fail 'No modules are enabled for this user/host setup.' ' '
     return $?
   fi
 
@@ -26,7 +25,7 @@ function checkRequirements() {
   for mod (${(P)=1}); do
     _valid="true"
 
-    zstyle -a ':ride:requirements' $mod _reqs
+    zstyle -a ":ride:$mod" requirements _reqs
 
     for req ($_reqs); do
       case $req in
@@ -47,32 +46,6 @@ function checkRequirements() {
   done
 
   eval "$2=($_resolvedRequirements)"
-}
-
-function resolveModuleGroups() {
-  local -Ua splattered simple
-
-  source "$DOTFILES_PATH/.groups"
-
-  for mod (${(P)=1}); do
-    if [[ $mod == '%'* ]]; then
-      if zstyle -T ':ride:module-group' ${mod#%}; then
-        warning "The module group $mod does not exist."
-        continue
-      fi
-
-      zstyle -a ':ride:module-group' ${mod#%} simple
-      if [[ $#simple == 0 ]]; then
-        warning "The module group $mod is empty."
-      else
-        splattered+=($simple)
-      fi
-    else
-      splattered+=($mod)
-    fi
-  done
-
-  eval "$2=($splattered)"
 }
 
 function resolveAllDependencies() {
@@ -97,8 +70,7 @@ function resolveDependencies() {
 function resolveDependenciesInternal() {
   eval "$3+=($1)" # add to unresolved
 
-  loadMeta $1
-  zstyle -a ':ride:depend' $1 nodes
+  zstyle -a ":ride:$1" depend nodes
 
   for edge in $nodes; do
     # if edge not in resolved

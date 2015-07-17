@@ -1,2 +1,4 @@
-zstyle ':ride:symlink:default:git:config' name .gitconfig
-zstyle ':ride:symlink:default:git:ignore' name .gitignore
+[[ $UID != 0 ]] && zstyle ':ride:git' enabled true
+
+zstyle ':ride:git:symlink:config' name .gitconfig
+zstyle ':ride:git:symlink:ignore' name .gitignore

@@ -1,2 +1,5 @@
 zstyle ':completion:*:cd:*' tag-order local-directories directory-stack path-directories
 cdpath=(.)
+
+compdef md=mkdir
+compdef mcd=mkdir

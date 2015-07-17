@@ -1,3 +1,5 @@
-zstyle ':ride:symlink:default:zsh:*' path ${ZDOTDIR-~}
-zstyle ':ride:symlink:default:zsh:profile' name .zprofile
-zstyle ':ride:symlink:default:zsh:rc' name .zshrc
+zstyle ':ride:zsh' enabled true
+
+zstyle ':ride:zsh:symlink:*' path ${ZDOTDIR-~}
+zstyle ':ride:zsh:symlink:profile' name .zprofile
+zstyle ':ride:zsh:symlink:rc' name .zshrc

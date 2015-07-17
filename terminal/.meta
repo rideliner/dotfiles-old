@@ -1,0 +1,37 @@
+function() {
+  zstyle ':ride:terminal' enabled true
+
+  local color console char
+
+  case `hostname -f` in
+    poirot* )
+      color=red ;;
+    marple* )
+      color=cyan ;;
+    oliver* )
+      color=green ;;
+    pyne* )
+      color=blue ;;
+    hastings* )
+      color=yellow ;;
+    *.cs.colostate.edu )
+      color=magenta ;;
+    * )
+      color=white
+  esac
+
+  case `whoami` in
+    ride )
+      char='\u271D'
+      console='+'
+      ;;
+    root )
+      char='\uA4' ;;
+    * )
+      char='$'
+  esac
+
+  zstyle ':ride:terminal:prompt' color $color
+  zstyle ':ride:terminal:prompt' char $char
+  [[ -n $console ]] && zstyle ':ride:terminal:prompt' console-char $console
+}

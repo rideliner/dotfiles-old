@@ -1,18 +1,30 @@
 source "${0:A:h}/path.zsh"
 
 function loadMeta() {
-  for src ($DOTFILES_PATH/${^=1}/.meta(N)); do
+  local -Ua _metaMods
+
+  for src ($DOTFILES_PATH/*/.meta(N)); do
     source $src
+    _metaMods+=("${src:h:t}")
   done
+
+  eval "$1=($_metaMods)"
 }
 
 function getModules() {
-  local -Ua _mods
-  zstyle -a ':ride' modules '_mods'
+  local -Ua _mods _enabledMods
+  local enabled
 
-  _mods=(zsh $_mods)
+  loadMeta _mods
 
-  eval "$1=($_mods)"
+  for mod ($_mods); do
+    zstyle -s ":ride:$mod" enabled enabled
+    if [[ "$enabled" == "true" ]]; then
+      _enabledMods+=($mod)
+    fi
+  done
+
+  eval "$1=($_enabledMods)"
 }
 
 function findAllModules() {

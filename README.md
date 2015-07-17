@@ -7,14 +7,6 @@ git clone https://github.com/rideliner/dotfiles.git <local-repo-dir>
 
 ## bootstrap
 
-Modify ~/.dot.conf to include your desired modules (listed below):
-
-    zstyle ':ride' modules <mod>...
-
-Ex.
-
-    zstyle ':ride' modules ruby rvm git
-
 ```sh
 ./bootstrap.sh
 ```
@@ -34,10 +26,7 @@ Ex.
 - `/etc/zprofile`
 - `~/.zprofile` _managed_
 - `/etc/zshrc`
-- `~/.dot.conf` - module config
-- `~/.dot.pre` - personal config before
 - `~/.zshrc` _managed_
-- `~/.dot.post` - personal config after
 - `/etc/zlogin`
 - `~/.zlogin`
 - `~/.zlogout`

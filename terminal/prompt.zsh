@@ -6,7 +6,7 @@ autoload -U add-zsh-hook
 function prompt_color() {
   local color
 
-  zstyle -s ':ride:config:terminal:prompt' color color
+  zstyle -s ':ride:terminal:prompt' color color
   [[ -z $color ]] && color='white'
 
   echo -e "$color"
@@ -15,9 +15,9 @@ function prompt_color() {
 function prompt_character() {
   local char
 
-  zstyle -s ':ride:config:terminal:prompt' char char
+  zstyle -s ':ride:terminal:prompt' char char
 
-  [[ -z $char || $(tty) > "/dev/tty" ]] && zstyle -s ':ride:config:terminal:prompt' console-char char
+  [[ -z $char || $(tty) > "/dev/tty" ]] && zstyle -s ':ride:terminal:prompt' console-char char
   [[ -z $char ]] && char='$'
 
   echo -e "%{$fg_bold[$(prompt_color)]%}$char"

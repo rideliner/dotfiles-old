@@ -5,25 +5,20 @@ function {
   local overwrite backup skip action
   local overwrite_all=false backup_all=false skip_all=false
 
-  getModulesAndDependencies mods
-  loadMeta mods
+  getModulesResolved mods
 
   for src ($DOTFILES_PATH/${^mods}/*.symlink(N)); do
     mod=${src:h:t}
     link=${src:t:r}
 
-    if ! zstyle -T ":ride:symlink:override:$mod:$link" path; then
-      zstyle -s ":ride:symlink:override:$mod:$link" path dir
-    elif ! zstyle -T ":ride:symlink:default:$mod:$link" path; then
-      zstyle -s ":ride:symlink:default:$mod:$link" path dir
+    if ! zstyle -T ":ride:${mod}:symlink:${link}" path; then
+      zstyle -s ":ride:${mod}:symlink:${link}" path dir
     else
       dir="$HOME"
     fi
 
-    if ! zstyle -T ":ride:symlink:override:$mod:$link" name; then
-      zstyle -s ":ride:symlink:override:$mod:$link" name name
-    elif ! zstyle -T ":ride:symlink:default:$mod:$link" name; then
-      zstyle -s ":ride:symlink:default:$mod:$link" name name
+    if ! zstyle -T ":ride:${mod}:symlink:${link}" name; then
+      zstyle -s ":ride:${mod}:symlink:${link}" name name
     else
       name=".?"
     fi

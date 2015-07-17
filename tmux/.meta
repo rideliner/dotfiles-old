@@ -1,3 +1,6 @@
-zstyle ':ride:symlink:default:tmux:conf' name .tmux.conf
+function() {
+  zstyle ':ride:tmux' enabled true
+  zstyle ':ride:tmux' depend terminal
 
-zstyle ':ride:depend' tmux terminal
+  zstyle ':ride:tmux:symlink:conf' name .tmux.conf
+}

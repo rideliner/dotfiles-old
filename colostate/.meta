@@ -1,3 +1,10 @@
-zstyle ':ride:depend' colostate ssh
+if [[ $UID != 0 ]]; then
+  case `hostname -f` in
+    hastings* | marple* | *.cs.colostate.edu )
+      zstyle ':ride:colostate' enabled true
+  esac
+fi
 
-zstyle ':ride:symlink:default:colostate:self' name .colostate
+zstyle ':ride:colostate' depend ssh
+
+zstyle ':ride:colostate:symlink:self' name .colostate

@@ -1,7 +1,4 @@
 
-[[ -s "$HOME/.dot.conf" ]] && source "$HOME/.dot.conf"
-[[ -s "$HOME/.dot.pre" ]] && source "$HOME/.dot.pre"
-
 source $(echo ${ZDOTDIR:-$HOME}/.zshrc(:A:h:h))/.internal/path.zsh
 
 [[ -s "$DOTFILES_PATH/.internal/default.path" ]] && source "$DOTFILES_PATH/.internal/default.path"
@@ -9,13 +6,13 @@ source $(echo ${ZDOTDIR:-$HOME}/.zshrc(:A:h:h))/.internal/path.zsh
 source "$DOTFILES_PATH/.internal/dependency.zsh"
 
 local mods
-getModulesAndDependencies mods
+getModulesResolved mods
 
 local -aU config_files path_files completion_files
 
 # load the path files
 for module in $mods; do
-  zstyle -a ":ride:order:$module" path path_files
+  zstyle -a ":ride:$module:order" path path_files
   path_files=($DOTFILES_PATH/$module/${^path_files}.path(N))
   path_files+=($DOTFILES_PATH/$module/*.path(N))
 
@@ -26,7 +23,7 @@ done
 
 # load the zsh files
 for module in $mods; do
-  zstyle -a ":ride:order:$module" zsh config_files
+  zstyle -a ":ride:$module:order" zsh config_files
   config_files=($DOTFILES_PATH/$module/${^config_files}.zsh(N))
   config_files+=($DOTFILES_PATH/$module/*.zsh(N))
 
@@ -41,7 +38,7 @@ compinit
 
 # load every completion file after autocomplete tools
 for module in $mods; do
-  zstyle -a ":ride:order:$module" completion completion_files
+  zstyle -a ":ride:$module:order" completion completion_files
   completion_files=($DOTFILES_PATH/$module/${^completion_files}.completion(N))
   completion_files+=($DOTFILES_PATH/$module/*.completion(N))
 
@@ -51,8 +48,6 @@ for module in $mods; do
 done
 
 unset mods module file config_files path_files completion_files
-
-[[ -s "$HOME/.dot.post" ]] && source "$HOME/.dot.post"
 
 # remove missing path directories
 path=($^path(N))
