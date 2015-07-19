@@ -1,0 +1,22 @@
+#!/usr/bin/env zsh
+
+function() {
+  local device="$2"
+  local netid=`zerotier-cli listnetworks | tail -n +2 | grep "$device " | cut -d' ' -f3`
+  local conf_file="${1:A:h}/${netid}.conf"
+
+  if [[ -f "$conf_file" ]]; then
+    local addIPv4 = function() {
+      ip -4 addr add "$1" broadcast "$2" dev "$device"
+    }
+
+    local addIPv6 = function() {
+      ip -6 addr add "$1" dev "$device"
+    }
+
+    source "$conf_file"
+  else
+    echo "$conf_file doesn't exist"
+    return -1
+  fi
+} "$0" "$1"
