@@ -21,33 +21,10 @@
 
 function() {
   local networks
-  local nwid
+  local nwid dev
   local -A interfaces
 
   local -aU existing_services
-
-  local service_file=/etc/systemd/system/zt-network@.service
-  local abs_service_file=$DOTFILES_PATH/zerotier/zt-network@.service
-
-  if [[ -f $service_file && "${service_file:A}" != "$abs_service_file" ]]; then
-    rm $service_file
-    status $? "removed $service_file"
-  fi
-
-  if [[ ! -f $service_file ]]; then
-    systemctl link "$abs_service_file"
-#    ln -s "$abs_service_file" "$service_file"
-    status $? "linked zt-network@.service to /etc/systemd/system"
-  fi
-
-  existing_services=(/etc/systemd/system/multi-user.target.wants/zt-network@*.service(N))
-  for service ($existing_services); do
-    if [[ "${service:A}" != "$abs_service_file" ]]; then
-      systemctl stop "${service}"
-      unlink "${service}"
-      status $? "removed invalid network link at $service"
-    fi
-  done
 
   for network ("${(@f)$(zerotier-cli listnetworks | tail -n +2)}"); do
     dev=$(echo $network | cut -d' ' -f8)
@@ -55,25 +32,49 @@ function() {
     interfaces[$nwid]=$dev
   done
 
-  for nwid (${(@k)interfaces}); do
-    service="/etc/systemd/system/multi-user.target.wants/zt-network@${interfaces[$nwid]}.service"
-    if [[ -f "$DOTFILES_PATH/zerotier/${nwid}.conf" ]]; then
-      if [[ -f $service ]]; then
-        success "skipped $nwid"
-      else
-        ln -s "$service_file" "$service"
-        status $? "created $service; $nwid"
-      fi
-    elif [[ -f $service ]]; then
-      systemctl stop "$service"
-      rm $service
-      status $? "removed $service; ${nwid}.conf doesn't exist"
-    fi
-    existing_services=("${(@)existing_services:#$service}")
-  done
+  for service_name ('zt-network@' 'zt-keepalive@'); do
+    local service_file=/etc/systemd/system/$service_name.service
+    local abs_service_file=$DOTFILES_PATH/zerotier/$service_name.service
 
-  for service ($existing_services); do
-    rm $service
-    status $? "removed $service; not attached to a valid network"
+    if [[ -f $service_file && "${service_file:A}" != "$abs_service_file" ]]; then
+      rm $service_file
+      status $? "removed $service_file"
+    fi
+
+    if [[ ! -f $service_file ]]; then
+      systemctl link "$abs_service_file"
+      status $? "linked zt-network@.service to /etc/systemd/system"
+    fi
+
+    existing_services=(/etc/systemd/system/multi-user.target.wants/$service_name*.service(N))
+    for service ($existing_services); do
+      if [[ "${service:A}" != "$abs_service_file" ]]; then
+        systemctl stop "${service}"
+        unlink "${service}"
+        status $? "removed invalid network link at $service"
+      fi
+    done
+
+    for nwid (${(@k)interfaces}); do
+      service="/etc/systemd/system/multi-user.target.wants/$service_name${interfaces[$nwid]}.service"
+      if [[ -f "$DOTFILES_PATH/zerotier/${nwid}.conf" ]]; then
+        if [[ -f $service ]]; then
+          success "skipped $nwid"
+        else
+          ln -s "$service_file" "$service"
+          status $? "created $service; $nwid"
+        fi
+      elif [[ -f $service ]]; then
+        systemctl stop "$service"
+        rm $service
+        status $? "removed $service; ${nwid}.conf doesn't exist"
+      fi
+      existing_services=("${(@)existing_services:#$service}")
+    done
+
+    for service ($existing_services); do
+      rm $service
+      status $? "removed $service; not attached to a valid network"
+    done
   done
 }
