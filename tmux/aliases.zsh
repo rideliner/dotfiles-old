@@ -25,3 +25,23 @@ if [[ $+commands[wine] && -f "$HOME/.wine/drive_c/Program Files (x86)/World of W
     tmux send-keys "wine Wow-64.exe" C-m
   }
 fi
+
+function rideliner() {
+  fail-outside-tmux && return 1
+
+  local -Ua machines
+  machines=(marple hastings oliver poirot pyne)
+  machines=(${(@)machines:#$(hostname -s)})
+
+  tmux new-window -n 'Network'
+
+  for (( i = 1; i <= $#machines; i++ )); do
+    if (( i != 1 )); then
+      tmux split-window -h
+    fi
+
+    tmux send-keys "ssh ${machines[i]}" C-m
+  done
+
+  tmux select-layout tiled
+}
