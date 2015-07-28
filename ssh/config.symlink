@@ -3,8 +3,6 @@ CanonicalDomains vpn.rideliner.net cs.colostate.edu
 
 Host *
     VisualHostKey yes
-    ForwardX11 yes
-    ForwardX11Trusted yes
     SendEnv LANG LC_ALL LANGUAGE
     Protocol 2
     TCPKeepAlive yes
@@ -23,9 +21,14 @@ Host github.com bitbucket.org git.rideliner.net
     User git
 
 Host *.cs.colostate.edu *.rideliner.net
+    User ride
     PasswordAuthentication no
     ForwardAgent yes
     IdentityFile ~/.ssh/id_ed25519
+
+Host *.cs.colostate.edu marple.vpn.rideliner.net
+    ForwardX11 yes
+    ForwardX11Trusted yes
 
 Host git.rideliner.net
     Hostname poirot.vpn.rideliner.net
