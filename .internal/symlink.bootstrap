@@ -1,10 +1,10 @@
 #!/usr/bin/env zsh
 
-function {
-  function resolve() {
-    eval "$1=\"${${${(P)1/\?/$2}/\!/$3}/\~/$HOME}\""
-  }
+function dotfileSymlinkResolve() {
+  eval "$1=\"${${${(P)1/\?/$2}/\!/$3}/\~/$HOME}\""
+}
 
+function {
   local mod mods src dst link dir name
   local overwrite backup skip action
   local overwrite_all=false backup_all=false skip_all=false
@@ -27,12 +27,13 @@ function {
       name=".?"
     fi
 
-    resolve dir $link $mod
-    resolve name $link $mod
+    dotfileSymlinkResolve dir $link $mod
+    dotfileSymlinkResolve name $link $mod
 
     dst="$dir/$name"
     dst=$dst:a
 
+    action=
     overwrite=
     backup=
     skip=

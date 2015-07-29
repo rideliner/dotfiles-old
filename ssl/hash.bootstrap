@@ -6,6 +6,8 @@ function {
   local ssl_path
   zstyle -s ':ride:ssl:symlink:*' path ssl_path
 
+  dotfileSymlinkResolve ssl_path "path" "ssl"
+
   if [[ ! -e $ssl_path ]]; then
     fail "$ssl_path doesn't exist."
     return $?
