@@ -49,7 +49,3 @@ URxvt*background: #1d1f21
 !white
 *color7  : #babdb9
 *color15 : #EEEEEC
-
-Xautolock.time: 10
-Xautolock.locker: slimlock
-Xautolock.detectsleep: true
