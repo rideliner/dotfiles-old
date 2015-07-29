@@ -5,7 +5,7 @@ function dotfileSymlinkResolve() {
 }
 
 function {
-  local mod mods src dst link dir name
+  local mod mods src dst link dir name invalid
   local overwrite backup skip action
   local overwrite_all=false backup_all=false skip_all=false
 
@@ -65,7 +65,11 @@ function {
       fail "${dst:h} exists, but is not a directory. Cannot create a symlink at $dst."
       return $?
     elif [[ -f "$dst" || -d "$dst" || -L "$dst" ]]; then
-      if [[ "${dst:A}" == "$src" ]]; then
+      invalid=($dst(N-@))
+      if [[ $#invalid -ne 0 ]]; then
+        rm $dst
+        success "removed invalid link $dst"
+      elif [[ "${dst:A}" == "$src" ]]; then
         skip="true"
       elif [[ "$overwrite_all" == "false" && "$backup_all" == "false" && "$skip_all" == "false" ]]; then
         action=
