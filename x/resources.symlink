@@ -2,6 +2,7 @@ URxvt*scrollBar: false
 URxvt*scrollBar_right: true
 URxvt*scrollBar_floating: false
 URxvt*skipScroll: true
+URxvt*saveLines: 0
 
 Xcursor.size: 16
 
@@ -11,8 +12,8 @@ Xft.rgba: rgb
 Xft.hinting: true
 Xft.hintstyle: hintslight
 
-URxvt*font: xft:Ubuntu Mono:size=12
-URxvt*boldFont: xft:Ubuntu Mono:size=12:bold
+URxvt*font: xft:Ubuntu Mono derivative Powerline:size=12
+URxvt*boldFont: xft:Ubuntu Mono derivative Powerline:size=12:bold
 URxvt*letterSpace: -1
 
 URxvt*foreground: #eaeaea
