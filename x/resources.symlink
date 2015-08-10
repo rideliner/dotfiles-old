@@ -12,8 +12,8 @@ Xft.rgba: rgb
 Xft.hinting: true
 Xft.hintstyle: hintslight
 
-URxvt*font: xft:Ubuntu Mono derivative Powerline:size=12
-URxvt*boldFont: xft:Ubuntu Mono derivative Powerline:size=12:bold
+URxvt*font: xft:DejaVu Sans Mono for Powerline:size=10
+URxvt*boldFont: xft:DejaVu Sans Mono for Powerline:size=10:bold
 URxvt*letterSpace: -1
 
 URxvt*foreground: #eaeaea
