@@ -1,5 +1,6 @@
 
 set -g default-shell /usr/bin/zsh
+set -g default-terminal "screen-256color"
 
 # Automatically set window title
 setw -g automatic-rename on
