@@ -22,12 +22,12 @@ call plug#begin('~/.vim/plugged')
 Plug 'bling/vim-airline'
 Plug 'edkolev/tmuxline.vim'
 Plug 'airblade/vim-gitgutter'
-Plug 'chriskempson/base16-vim'
 Plug 'tpope/vim-fugitive'
 call plug#end()
 
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
+let g:airline_theme = 'bubblegum'
 
 set background=dark
 set t_Co=256
