@@ -23,10 +23,10 @@ function prompt_character() {
   echo -e "%{$fg_bold[$(prompt_color)]%}$char"
 }
 
-PROMPT='$(prompt_character) %{$fg_bold[yellow]%}'
+PROMPT='$(prompt_character) '
 
 ls_on_chdir() { ls; }
-reset_foreground() { echo -ne "$reset_color"; }
 
 add-zsh-hook chpwd ls_on_chdir
-add-zsh-hook preexec reset_foreground
+
+zle_highlight=(default:fg=yellow,bold)
