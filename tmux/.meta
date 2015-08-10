@@ -2,3 +2,4 @@ zstyle ':ride:tmux' enabled true
 zstyle ':ride:tmux' depend terminal
 
 zstyle ':ride:tmux:symlink:conf' name '.!.?'
+zstyle ':ride:tmux:symlink:snapshot' name '.!.conf.?'
