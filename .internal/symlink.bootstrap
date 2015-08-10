@@ -1,8 +1,6 @@
 #!/usr/bin/env zsh
 
-function dotfileSymlinkResolve() {
-  eval "$1=\"${${${(P)1/\?/$2}/\!/$3}/\~/$HOME}\""
-}
+source "${0:A:h}/resolve.zsh"
 
 function {
   local mod mods src dst link dir name invalid
