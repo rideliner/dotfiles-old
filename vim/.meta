@@ -1,3 +1,6 @@
 zstyle ':ride:vim' enabled true
 
 zstyle ':ride:vim:symlink:rc' name '.!?'
+
+zstyle ':ride:vim:symlink:plug' name '?.!'
+zstyle ':ride:vim:symlink:plug' path '~/.!/autoload'

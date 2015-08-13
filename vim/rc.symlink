@@ -18,7 +18,7 @@ set nowrap
 set expandtab
 
 " Plugins (junegunn/vim-plug)
-call plug#begin('~/.vim/plugged')
+call plug#begin('$DOTFILES_PATH/vim/plugged')
 Plug 'bling/vim-airline'
 Plug 'edkolev/tmuxline.vim'
 Plug 'airblade/vim-gitgutter'
