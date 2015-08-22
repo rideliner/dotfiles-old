@@ -2,7 +2,7 @@
 
 source "${0:A:h}/../.internal/path.zsh"
 
-file="$(whoami)@$(hostname -s)"
+file="$(whoami)@$DOTFILES_SHORT_HOST"
 
 if [[ -f ~/.ssh/id_ed25519 ]]; then
   echo "ERROR: ~/.ssh/id_ed25519 already exists."

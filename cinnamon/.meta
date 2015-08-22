@@ -1,4 +1,4 @@
-case `hostname -f` in
+case $DOTFILES_FULL_HOST in
   hastings* | marple* | *.cs.colostate.edu )
     zstyle ':ride:cinnamon' enabled true
 esac

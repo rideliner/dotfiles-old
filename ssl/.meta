@@ -2,7 +2,7 @@ if [[ $UID == 0 ]]; then
   zstyle ':ride:ssl' enabled true
   zstyle ':ride:ssl:symlink:*' path /etc/ca-certificates/trust-source/anchors
 else
-  case `hostname -f` in
+  case $DOTFILES_FULL_HOST in
     *.cs.colostate.edu )
       zstyle ':ride:ssl' enabled true
       zstyle ':ride:ssl:symlink:*' path '~/.!'

@@ -3,7 +3,7 @@ function() {
 
   local color console char
 
-  case `hostname -f` in
+  case $DOTFILES_FULL_HOST in
     poirot* )
       color=red ;;
     marple* )

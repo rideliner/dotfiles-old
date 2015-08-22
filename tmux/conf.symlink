@@ -12,7 +12,6 @@ set -g mouse-resize-pane on
 set -g mouse-select-window on
 
 setw -g monitor-activity on
-set -g visual-activity on
 
 set -g base-index 1
 setw -g pane-base-index 1

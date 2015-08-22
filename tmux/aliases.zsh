@@ -31,7 +31,7 @@ function rideliner() {
 
   local -Ua machines
   machines=(marple hastings oliver poirot pyne)
-  machines=(${(@)machines:#$(hostname -s)})
+  machines=(${(@)machines:#$DOTFILES_SHORT_HOST})
 
   tmux new-window -n 'Network'
 

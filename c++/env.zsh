@@ -3,7 +3,7 @@
 (( $+commands[clang] )) && export CC="$commands[clang]"
 (( $+commands[clang++] )) && export CXX="$commands[clang++]"
 
-case `hostname -f` in
+case $DOTFILES_FULL_HOST in
   marple* )
     # Boost
     export BOOST_ROOT=/usr

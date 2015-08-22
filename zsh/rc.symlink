@@ -53,4 +53,3 @@ unset mods module file config_files path_files completion_files
 path=($^path(N))
 
 export path
-
