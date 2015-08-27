@@ -1,6 +1,10 @@
-if (( $UID == 0 && $+commands[pacman] )); then
+if (( $+commands[pacman] )); then
   zstyle ':ride:pacman' enabled true
-fi
 
-zstyle ':ride:pacman:symlink:conf' path '/etc'
-zstyle ':ride:pacman:symlink:conf' name '!.?'
+  if [[ $UID == 0 ]]; then
+    zstyle ':ride:pacman:symlink:conf' path '/etc'
+    zstyle ':ride:pacman:symlink:conf' name '!.?'
+  else
+    zstyle ':ride:pacman:symlink:conf' enabled false
+  fi
+fi

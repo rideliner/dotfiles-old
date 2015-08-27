@@ -3,7 +3,7 @@
 source "${0:A:h}/resolve.zsh"
 
 function {
-  local mod mods src dst link dir name invalid
+  local mod mods src dst link dir name invalid enabled
   local overwrite backup skip action
   local overwrite_all=false backup_all=false skip_all=false
 
@@ -12,6 +12,12 @@ function {
   for src ($DOTFILES_PATH/${^mods}/*.symlink(N)); do
     mod=${src:h:t}
     link=${src:t:r}
+
+    # if 'enabled' is set and it is set to false, we skip this symlink
+    if ! zstyle -T ":ride:${mod}:symlink:${link}" enabled; then
+      zstyle -s ":ride:${mod}:symlink:${link}" enabled enabled
+      [[ "$enabled" == "false" ]] && continue
+    fi
 
     if ! zstyle -T ":ride:${mod}:symlink:${link}" path; then
       zstyle -s ":ride:${mod}:symlink:${link}" path dir
