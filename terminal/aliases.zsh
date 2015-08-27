@@ -31,7 +31,6 @@ alias my-ip='curl icanhazip.com'
 
 alias @='pwd'
 
-(( $+commands[yaourt] && $UID != 0 )) && alias pacman='yaourt'
 
 if (( $+commands[rdesktop] )); then
   function rdesktop() {
