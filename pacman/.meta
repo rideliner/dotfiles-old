@@ -1,4 +1,4 @@
-if (( $+commands[pacman] )); then
+if (( $+commands[pacman] )) && [[ ! $(uname -m) =~ "arm*" ]]; then
   zstyle ':ride:pacman' enabled true
 
   if [[ $UID == 0 ]]; then
