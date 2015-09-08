@@ -11,11 +11,13 @@ function() {
     oliver* )
       color=green ;;
     pyne* )
-      color=blue ;;
+      color=magenta ;;
     hastings* )
+      color=blue ;;
+    lemon* )
       color=yellow ;;
     *.cs.colostate.edu )
-      color=magenta ;;
+      color=white ;;
     * )
       color=white
   esac
