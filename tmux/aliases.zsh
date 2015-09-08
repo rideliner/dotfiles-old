@@ -30,7 +30,7 @@ function rideliner() {
   fail-outside-tmux && return 1
 
   local -Ua machines
-  machines=(marple hastings oliver poirot pyne)
+  machines=(marple hastings oliver poirot pyne lemon)
   machines=(${(@)machines:#$DOTFILES_SHORT_HOST})
 
   tmux new-window -n 'Network'
