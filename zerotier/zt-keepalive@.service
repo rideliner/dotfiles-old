@@ -6,7 +6,7 @@ After=sys-subsystem-net-devices-%i.device zt-network@%i.service
 [Service]
 Type=simple
 Restart=always
-ExecStart=/usr/bin/ping6 ff02::1 -I %i -i 115 -s 0 -L -q
+ExecStart=/usr/bin/ping6 ff02::1 -I %i -i 45 -s 0 -L -q
 
 [Install]
 WantedBy=multi-user.target
