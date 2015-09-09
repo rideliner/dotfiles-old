@@ -33,7 +33,7 @@ function rideliner() {
   local cmd
 
   if (( $# > 0 )); then
-    cmd=" '$@'"
+    cmd=" -t '$@'"
   else
     cmd=""
   fi

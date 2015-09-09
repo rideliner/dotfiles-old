@@ -7,6 +7,9 @@ source $(echo ${ZDOTDIR:-$HOME}/.zshrc(:A:h:h))/.internal/path.zsh
 source "$DOTFILES_PATH/.internal/dependency.zsh"
 source "$DOTFILES_PATH/.internal/update.zsh"
 
+# update the dotfiles and exit if ZSH was started with the update command
+if [[ $1 == 'update' ]]; then; updateDotfiles; exit; fi
+
 local mods
 getModulesResolved mods
 
