@@ -1,10 +1,20 @@
 if (( $+commands[pacman] )); then
   zstyle ':ride:pacman' enabled true
 
-  if [[ $UID == 0 && ! $(uname -m) =~ "arm*" ]]; then
-    zstyle ':ride:pacman:symlink:conf' path '/etc'
-    zstyle ':ride:pacman:symlink:conf' name '!.?'
-  else
-    zstyle ':ride:pacman:symlink:conf' enabled false
+  if [[ $UID == 0 ]]; then
+    zstyle ':ride:pacman:symlink:arm-conf' enabled false
+    zstyle ':ride:pacman:symlink:auto-conf' enabled false
+
+    if [[ $(uname -m) =~ "arm*" ]]; then
+      zstyle ':ride:pacman:symlink:arm-conf' enabled true
+
+      zstyle ':ride:pacman:symlink:arm-conf' path '/etc'
+      zstyle ':ride:pacman:symlink:arm-conf' name '!.conf'
+    else
+      zstyle ':ride:pacman:symlink:auto-conf' enabled true
+
+      zstyle ':ride:pacman:symlink:auto-conf' path '/etc'
+      zstyle ':ride:pacman:symlink:auto-conf' name '!.conf'
+    fi
   fi
 fi
