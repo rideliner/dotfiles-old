@@ -2,6 +2,7 @@
 source $(echo ${ZDOTDIR:-$HOME}/.zshrc(:A:h:h))/.internal/path.zsh
 
 [[ -s "$DOTFILES_PATH/.internal/default.path" ]] && source "$DOTFILES_PATH/.internal/default.path"
+[[ -s "$HOME/.path" ]] && source "$HOME/.path"
 
 source "$DOTFILES_PATH/.internal/dependency.zsh"
 source "$DOTFILES_PATH/.internal/update.zsh"
