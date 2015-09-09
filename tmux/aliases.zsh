@@ -30,6 +30,14 @@ function rideliner() {
   fail-outside-tmux && return 1
 
   local -Ua machines
+  local cmd
+
+  if (( $# > 0 )); then
+    cmd=" '$@'"
+  else
+    cmd=""
+  fi
+
   machines=(marple oliver poirot pyne lemon)
   machines=(${(@)machines:#$DOTFILES_SHORT_HOST})
 
@@ -40,10 +48,7 @@ function rideliner() {
       tmux split-window -h
     fi
 
-    tmux send-keys "ssh ${machines[i]}" C-m
-    if (( $# > 0 )); then
-      tmux send-keys "$@" C-m
-    fi
+    tmux send-keys "ssh ${machines[i]}$cmd" C-m
   done
 
   tmux split-window -h
