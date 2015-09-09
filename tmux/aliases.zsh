@@ -41,9 +41,15 @@ function rideliner() {
     fi
 
     tmux send-keys "ssh ${machines[i]}" C-m
+    if (( $# > 0 )); then
+      tmux send-keys "$@" C-m
+    fi
   done
 
   tmux split-window -h
+  if (( $# > 0 )); then
+    tmux send-keys "$@" C-m
+  fi
 
   tmux select-layout tiled
 }
