@@ -30,7 +30,7 @@ function rideliner() {
   fail-outside-tmux && return 1
 
   local -Ua machines
-  machines=(marple hastings oliver poirot pyne lemon)
+  machines=(marple oliver poirot pyne lemon)
   machines=(${(@)machines:#$DOTFILES_SHORT_HOST})
 
   tmux new-window -n 'Network'
@@ -42,6 +42,8 @@ function rideliner() {
 
     tmux send-keys "ssh ${machines[i]}" C-m
   done
+
+  tmux split-window -h
 
   tmux select-layout tiled
 }
