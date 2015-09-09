@@ -32,7 +32,9 @@ function rideliner() {
   local -Ua machines
   local cmd
 
-  if (( $# > 0 )); then
+  if [[ $1 == 'updateDotfiles' ]]; then
+    cmd=" -t 'zsh -s update'"
+  elif (( $# > 0 )); then
     cmd=" -t '$@'"
   else
     cmd=""
