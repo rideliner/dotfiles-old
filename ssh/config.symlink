@@ -30,6 +30,11 @@ Host *.cs.colostate.edu marple.vpn.rideliner.net
     ForwardX11 yes
     ForwardX11Trusted yes
 
+Host cs200
+    PasswordAuthentication yes
+    User cs200
+    Hostname goodsir.cs.colostate.edu
+
 Host git.rideliner.net
     Hostname poirot.vpn.rideliner.net
 
