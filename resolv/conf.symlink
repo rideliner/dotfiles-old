@@ -1,0 +1,7 @@
+# Configuration for resolvconf(8)
+# See resolvconf.conf(5) for details
+
+resolv_conf=/etc/resolv.conf
+
+name_servers="8.8.8.8 8.8.4.4"
+search_domains="vpn.rideliner.net"

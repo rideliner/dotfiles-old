@@ -1,0 +1,6 @@
+if [[ $UID == 0 ]]; then
+  zstyle ':ride:resolv' enabled true
+
+  zstyle ':ride:resolv:symlink:conf' path '/etc'
+  zstyle ':ride:resolv:symlink:conf' name '!?.?'
+fi
