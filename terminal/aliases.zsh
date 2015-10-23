@@ -39,21 +39,23 @@ if (( $+commands[rdesktop] )); then
     local data res
 
     data=`xrandr | grep '*'`
-    max_pixels=-1
+    (( max_pixels = -1 ))
 
     for res in ${(@f)data}; do
       if [[ $res =~ '([0-9]+)x([0-9]+)' ]]; then
-        pixels=$(( $match[1] * $match[2] ))
+        (( pixels = $(( $match[1] * $match[2] )) ))
         if [[ $pixels -gt $max_pixels ]]; then
-          max_pixels=$pixels
-          x_res=$match[1]
-          y_res=$match[2]
+          (( max_pixels = $pixels ))
+          (( x_res = $match[1] ))
+          (( y_res = $match[2] ))
         fi
       fi
     done
 
-    # TODO a few pixels may need to be taken off to account for borders
-    # the primary monitor may need a few more pixels taken off
+    # approximately 4 pixels on the left, right, and bottom
+    # approximately 46 pixels on the top
+    (( x_res -= 8 ))
+    (( y_res -= 50 ))
 
     $commands[rdesktop] "$@" "-g ${x_res}x${y_res}"
   }
