@@ -1,5 +1,20 @@
-for cmd in ruby rbx; do
-  if (( $+commands[$cmd] )); then
-    path=("$($commands[$cmd] -e 'print Gem.user_dir')/bin" $path)
+source "${0:A:h}/../.internal/path.zsh"
+
+function() {
+  if [[ -e "$DOTFILES_PATH/gem/home.path.cache" ]]; then
+    source "$DOTFILES_PATH/gem/home.path.cache"
+  else
+    local -a cache
+    local p
+    for cmd in ruby rbx; do
+      if (( $+commands[$cmd] )); then
+        p="$($commands[$cmd] -e 'print Gem.user_dir')/bin"
+
+        cache=("$p" $cache)
+        path=("$p" $path)
+      fi
+    done
+
+    echo "path=($cache \$path)" > "$DOTFILES_PATH/gem/home.path.cache"
   fi
-done
+}
