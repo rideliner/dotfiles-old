@@ -1,3 +1,0 @@
-#!/usr/bin/env zsh
-
-ip addr flush dev "$1" scope global

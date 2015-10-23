@@ -1,7 +1,7 @@
 [Unit]
 Description=ZeroTier One Keep Alive %i
 BindsTo=sys-subsystem-net-devices-%i.device
-After=sys-subsystem-net-devices-%i.device zt-network@%i.service
+After=sys-subsystem-net-devices-%i.device
 
 [Service]
 Type=simple

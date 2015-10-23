@@ -32,7 +32,7 @@ function() {
     interfaces[$nwid]=$dev
   done
 
-  for service_name ('zt-network@' 'zt-keepalive@'); do
+  for service_name ('zt-keepalive@'); do
     local service_file=/etc/systemd/system/$service_name.service
     local abs_service_file=$DOTFILES_PATH/zerotier/$service_name.service
 
@@ -57,17 +57,11 @@ function() {
 
     for nwid (${(@k)interfaces}); do
       service="/etc/systemd/system/multi-user.target.wants/$service_name${interfaces[$nwid]}.service"
-      if [[ -f "$DOTFILES_PATH/zerotier/${nwid}.conf" ]]; then
-        if [[ -f $service ]]; then
-          success "skipped ${service:t} for $nwid"
-        else
-          ln -s "$service_file" "$service"
-          status $? "created $service; $nwid"
-        fi
-      elif [[ -f $service ]]; then
-        systemctl stop "$service"
-        rm $service
-        status $? "removed $service; ${nwid}.conf doesn't exist"
+      if [[ -f $service ]]; then
+        success "skipped ${service:t} for $nwid"
+      else
+        ln -s "$service_file" "$service"
+        status $? "created $service; $nwid"
       fi
       existing_services=("${(@)existing_services:#$service}")
     done
