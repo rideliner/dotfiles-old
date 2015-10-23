@@ -1,6 +1,7 @@
 
 function() {
   if (( $+commands[keychain] )); then
+    keychain --quiet --stop others
     eval $(keychain --eval --quiet)
 
     local -a keys
