@@ -3,10 +3,10 @@
 source "${0:A:h}/.internal/path.zsh"
 source "$DOTFILES_PATH/.internal/dependency.zsh"
 
-zparseopts -D -E -A Args -- -all -enabled -usage
+zparseopts -D -E -A Args -- -all -enabled -usage -help
 
-if (( ${+Args[--usage]} )); then
-  echo "Usage: $0 [--usage] [--dot|<module>*] [--all]"
+if (( ${+Args[--usage]} || ${+Args[--help]} )); then
+  echo "Usage: $0 [--usage|help] [--enabled|<module>*] [--all]"
   echo
   echo "--all"
   echo "    Show modules that don't have dependencies."
