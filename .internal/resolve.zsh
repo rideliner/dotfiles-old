@@ -5,5 +5,5 @@
 # 2- name of symlink file
 # 3- name of module
 function dotfileSymlinkResolve() {
-  eval "$1=\"${${${(P)1//\?/$2}//\!/$3}/\~/$HOME}\""
+  eval "$1=\"${${${${(P)1}//\?/$2}//\!/$3}/\~/$HOME}\""
 }

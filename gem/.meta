@@ -11,3 +11,6 @@ zstyle ':ride:gem:symlink:rc' name '.!?'
 
 zstyle ':ride:gem:symlink:nexus' path '~/.!'
 zstyle ':ride:gem:symlink:nexus' name '?'
+
+zstyle ':ride:gem:symlink:rubygems' path '~/.!'
+zstyle ':ride:gem:symlink:rubygems' name 'credentials'
