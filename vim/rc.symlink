@@ -19,7 +19,8 @@ set expandtab
 
 " Plugins (junegunn/vim-plug)
 call plug#begin('$DOTFILES_PATH/vim/plugged')
-Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'edkolev/tmuxline.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
