@@ -3,6 +3,7 @@ case $DOTFILES_FULL_HOST in
     zstyle ':ride:ruby' enabled true
 esac
 
+zstyle ':ride:ruby' depend terminal
 zstyle ':ride:ruby:order' zsh gem_path chrb
 
 if [[ $UID == 0 ]]; then

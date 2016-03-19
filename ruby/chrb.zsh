@@ -46,6 +46,7 @@ function chrb() {
     dotfiles/ruby/remove_from_gem_path
 
     export DOTFILES_RUBY="$1"
+    dotfiles/terminal/update_rprompt
 
     local new_p
     dotfiles/ruby/add_to_gem_path 'new_p'

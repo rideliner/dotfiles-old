@@ -24,7 +24,13 @@ function prompt_character() {
 }
 
 PROMPT='$(prompt_character) '
-RPROMPT='$(ruby -v | cut -d " " -f -2)'
+
+# cut down the time between prompts by caching RPROMPT
+# this is necessary because of the startup time for rbx
+function dotfiles/terminal/update_rprompt() {
+  RPROMPT="$(ruby -v | cut -d ' ' -f -2)"
+}
+dotfiles/terminal/update_rprompt
 
 ls_on_chdir() { ls; }
 
