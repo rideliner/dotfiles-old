@@ -1,0 +1,2 @@
+
+dconf load /org/cinnamon/desktop/keybindings/ < $DOTFILES_PATH/cinnamon/keybindings.dconf

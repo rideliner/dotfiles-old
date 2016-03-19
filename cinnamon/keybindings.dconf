@@ -1,0 +1,5 @@
+[wm]
+minimize=['<Alt><Super>Down']
+switch-group-backward=['<Shift><Alt>asciitilde']
+switch-windows-backward=['<Shift><Alt>ISO_Left_Tab']
+toggle-maximized=['<Alt><Super>Up', '<Alt>F10']
