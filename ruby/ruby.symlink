@@ -1,0 +1,8 @@
+#!/usr/bin/env zsh
+
+if [[ -z "$DOTFILES_RUBY" ]]; then
+  echo "No ruby is setup through chrb..."
+  exit 1
+else
+  $DOTFILES_RUBY "$@"
+fi

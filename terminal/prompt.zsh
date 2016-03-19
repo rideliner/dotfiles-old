@@ -24,6 +24,7 @@ function prompt_character() {
 }
 
 PROMPT='$(prompt_character) '
+RPROMPT='$(ruby -v | cut -d " " -f -2)'
 
 ls_on_chdir() { ls; }
 

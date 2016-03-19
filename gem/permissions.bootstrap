@@ -1,0 +1,10 @@
+#!/usr/bin/env zsh
+
+function {
+  if [[ `stat -c '%a' $DOTFILES_PATH/gem/rubygems.symlink` == '600' ]]; then
+    success 'permissions already set'
+  else
+    chmod 0600 $DOTFILES_PATH/gem/rubygems.symlink
+    status $? 'fixed permissions to 0600'
+  fi
+}
