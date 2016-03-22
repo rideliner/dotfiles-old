@@ -12,6 +12,14 @@ function prompt_color() {
   echo -e "$color"
 }
 
+function safe_prompt_color() {
+  echo -e "%{$fg_bold[$(prompt_color)]%}"
+}
+
+function safe_reset_color() {
+  echo -e "%{$reset_color%}"
+}
+
 function prompt_character() {
   local char
 
@@ -20,7 +28,7 @@ function prompt_character() {
   [[ -z $char || $(tty) > "/dev/tty" ]] && zstyle -s ':ride:terminal:prompt' console-char char
   [[ -z $char ]] && char='$'
 
-  echo -e "%{$fg_bold[$(prompt_color)]%}$char"
+  echo -e "$(safe_prompt_color)$char"
 }
 
 PROMPT='$(prompt_character) '
@@ -28,7 +36,7 @@ PROMPT='$(prompt_character) '
 # cut down the time between prompts by caching RPROMPT
 # this is necessary because of the startup time for rbx
 function dotfiles/terminal/update_rprompt() {
-  RPROMPT="$(ruby -v | cut -d ' ' -f -2)"
+  RPROMPT="\$(safe_prompt_color)$(ruby -v | cut -d ' ' -f -2)$(safe_reset_color)"
 }
 dotfiles/terminal/update_rprompt
 
