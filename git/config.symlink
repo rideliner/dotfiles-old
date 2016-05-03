@@ -50,6 +50,9 @@
     root = rev-parse --show-toplevel
     message = log -1 --pretty=format:"%b"
     permission-reset = !git diff -p | grep -E "^(diff|old mode|new mode)" | sed -e "s/^old/NEW/;s/^new/old/;s/^NEW/new/" | git apply
+    hide = update-index --assume-unchanged
+    unhide = update-index --no-assume-unchanged
+    hidden = !git ls-files -v | grep '^h' | cut -c3-
 [github]
     user = rideliner
     token = 5f276a7c165a9065b1fce40f034ef38c
