@@ -1,0 +1,10 @@
+[Trigger]
+Type = Package
+Operation = Install
+Operation = Upgrade
+Target = ruby
+
+[Action]
+Description = Rename ruby to mri...
+When = PostTransaction
+Exec = /usr/bin/mv /usr/bin/ruby /usr/bin/mri
