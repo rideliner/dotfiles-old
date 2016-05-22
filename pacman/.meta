@@ -1,6 +1,6 @@
-if (( $+commands[pacman] && $UID == 0 )); then
-  zstyle ':ride:pacman' enabled true
+zstyle ':ride:pacman' enabled true
 
+if (( $+commands[pacman] && $UID == 0 )); then
   zstyle ':ride:pacman:symlink:arm-conf' enabled false
   zstyle ':ride:pacman:symlink:auto-conf' enabled false
 
