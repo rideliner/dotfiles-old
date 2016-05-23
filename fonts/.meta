@@ -5,8 +5,5 @@ if [[ $UID != 0 ]]; then
       zstyle ':ride:fonts:symlink:self' name '!'
       zstyle ':ride:fonts' enabled true
       ;;
-    *.cs.colostate.edu )
-      zstyle ':ride:fonts:symlink:self' name '.!'
-      zstyle ':ride:fonts' enabled true
   esac
 fi

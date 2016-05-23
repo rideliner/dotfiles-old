@@ -1,6 +1,0 @@
-case $DOTFILES_FULL_HOST in
-  *.cs.colostate.edu )
-    zstyle ':ride:nss' enabled true
-esac
-
-zstyle ':ride:nss' certificates ca.rideliner.net

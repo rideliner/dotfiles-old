@@ -8,16 +8,12 @@ function() {
       color=red ;;
     marple* )
       color=cyan ;;
-    oliver* )
-      color=green ;;
     pyne* )
       color=magenta ;;
     hastings* )
-      color=blue ;;
+      color=green ;;
     lemon* )
       color=yellow ;;
-    *.cs.colostate.edu )
-      color=white ;;
     * )
       color=white
   esac

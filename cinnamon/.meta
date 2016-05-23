@@ -1,4 +1,4 @@
 case $DOTFILES_FULL_HOST in
-  hastings* | marple* | *.cs.colostate.edu )
+  hastings* | marple* )
     zstyle ':ride:cinnamon' enabled true
 esac

@@ -8,10 +8,4 @@ case $DOTFILES_FULL_HOST in
     # Boost
     export BOOST_ROOT=/usr
     ;;
-  *.cs.colostate.edu )
-    # OpenMPI
-    typeset -UTx LD_LIBRARY_PATH ld_library_path
-
-    path+=(/usr/lib64/openmpi/bin)
-    ld_library_path+=(/usr/lib/openmpi/lib $HOME/.local/lib)
 esac

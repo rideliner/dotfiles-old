@@ -40,7 +40,7 @@ function rideliner() {
     cmd=""
   fi
 
-  machines=(marple oliver poirot pyne lemon)
+  machines=(marple poirot pyne lemon)
   machines=(${(@)machines:#$DOTFILES_SHORT_HOST})
 
   tmux new-window -n 'Network'
