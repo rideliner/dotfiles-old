@@ -1,0 +1,14 @@
+if [[ $UID == 0 ]]; then
+  case $DOTFILES_FULL_HOST in
+    poirot* | marple* | pyne* | lemon* )
+      zstyle ':ride:system' enabled true
+  esac
+fi
+
+zstyle ':ride:system' requirements privileged
+
+zstyle ':ride:system:symlink:logind' path /etc/systemd
+zstyle ':ride:system:symlink:logind' name '?.conf'
+
+zstyle ':ride:system:symlink:ptrace' path /etc/sysctl.d
+zstyle ':ride:system:symlink:ptrace' name '10-?.conf'
