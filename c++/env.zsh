@@ -7,5 +7,10 @@ case $DOTFILES_FULL_HOST in
   marple* )
     # Boost
     export BOOST_ROOT=/usr
+    ;&
+  hastings* )
+    typeset -UTx LD_LIBRARY_PATH ld_library_path
+
+    ld_library_path+=(/data/code/ride.concurrency/lib)
     ;;
 esac
