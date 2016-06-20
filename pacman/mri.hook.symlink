@@ -7,4 +7,4 @@ Target = ruby
 [Action]
 Description = Rename ruby to mri...
 When = PostTransaction
-Exec = /usr/bin/mv /usr/bin/ruby /usr/bin/mri
+Exec = /usr/share/libalpm/scripts/mri

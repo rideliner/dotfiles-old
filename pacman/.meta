@@ -4,6 +4,7 @@ if (( $+commands[pacman] )); then
   zstyle ':ride:pacman:symlink:arm-conf' enabled false
   zstyle ':ride:pacman:symlink:auto-conf' enabled false
   zstyle ':ride:pacman:symlink:mri.hook' enabled false
+  zstyle ':ride:pacman:symlink:mri.script' enabled false
 
   if [[ $UID == 0 ]]; then
     if [[ $(uname -m) =~ "arm*" ]]; then
@@ -21,5 +22,9 @@ if (( $+commands[pacman] )); then
     zstyle ':ride:pacman:symlink:mri.hook' enabled true
     zstyle ':ride:pacman:symlink:mri.hook' path '/usr/share/libalpm/hooks'
     zstyle ':ride:pacman:symlink:mri.hook' name '?'
+
+    zstyle ':ride:pacman:symlink:mri.script' enabled true
+    zstyle ':ride:pacman:symlink:mri.script' path '/usr/share/libalpm/scripts'
+    zstyle ':ride:pacman:symlink:mri.script' name 'mri'
   fi
 fi

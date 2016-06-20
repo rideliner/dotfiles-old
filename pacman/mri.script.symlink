@@ -1,0 +1,4 @@
+#!/usr/bin/bash
+
+mv /usr/bin/ruby /usr/bin/mri
+ln -s /usr/local/bin/ruby /usr/bin/ruby
