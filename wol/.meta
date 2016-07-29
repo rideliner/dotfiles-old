@@ -1,0 +1,6 @@
+function() {
+  zstyle ':ride:wol' enabled true
+
+  zstyle ':ride:wol:mac' marple '10:c3:7b:6d:e5:b2'
+  zstyle ':ride:wol:mac' poirot '1c:6f:65:42:2d:9b'
+}
