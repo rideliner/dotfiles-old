@@ -1,6 +1,0 @@
-[[ $UID == 0 && $+commands[zerotier-cli] ]] && zstyle ':ride:zerotier' enabled true
-
-zstyle ':ride:requirements' zerotier privileged
-
-zstyle ':ride:zerotier:symlink:*' path /usr/local/bin
-zstyle ':ride:zerotier:symlink:*' name 'zt-net-?'
