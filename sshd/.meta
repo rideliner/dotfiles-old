@@ -1,11 +1,21 @@
-if [[ $UID == 0 ]]; then
-  case $DOTFILES_FULL_HOST in
-    poirot* | marple* | pyne* | lemon* )
-      zstyle ':ride:sshd' enabled true
-  esac
-fi
-
 zstyle ':ride:sshd' requirements privileged
 
-zstyle ':ride:sshd:symlink:config' path /etc/ssh
-zstyle ':ride:sshd:symlink:config' name '!_?'
+if [[ $UID == 0 ]]; then
+  zstyle ':ride:sshd' enabled true
+
+  # where sshd is hosted
+  case $DOTFILES_FULL_HOST in
+    poirot* | marple* | pyne* | lemon* )
+      zstyle ':ride:sshd:symlink:config' path /etc/ssh
+      zstyle ':ride:sshd:symlink:config' name '!_?'
+
+      zstyle ':ride:sshd:symlink:user-ca.pub' path /etc/ssh
+      zstyle ':ride:sshd:symlink:user-ca.pub' name 'vpn-rideliner-net_user-ca.key.pub'
+
+      zstyle ':ride:sshd:symlink:revoked_keys' path /etc/ssh
+      zstyle ':ride:sshd:symlink:revoked_keys' name '?'
+  esac
+
+  zstyle ':ride:sshd:symlink:known_hosts' path /etc/ssh
+  zstyle ':ride:sshd:symlink:known_hosts' name 'ssh_?'
+fi

@@ -7,11 +7,13 @@ ListenAddress ::
 Protocol 2
 
 HostKey /etc/ssh/ssh_host_ed25519_key
-HostKey /etc/ssh/ssh_host_rsa_key
+HostCertificate /etc/ssh/ssh_host_ed25519_key-cert.pub
 
 AllowGroups ssh-user
 
 AuthorizedKeysFile .ssh/authorized_keys
+TrustedUserCAKeys /etc/ssh/vpn-rideliner-net_user-ca.key.pub
+RevokedKeys /etc/ssh/revoked_keys
 
 # This is only needed until a reliable way of
 # keeping ZeroTier connections alive is found
@@ -25,11 +27,9 @@ X11Forwarding yes
 GatewayPorts no
 PrintMotd no
 PrintLastLog yes #?
-UsePrivilegeSeparation yes
 StrictModes yes
 PermitTTY yes
 UseDNS yes
-UseLogin no
 UsePAM yes #?
 
 X11DisplayOffset 10
