@@ -33,13 +33,6 @@ function prompt_character() {
 
 PROMPT='$(prompt_character) '
 
-# cut down the time between prompts by caching RPROMPT
-# this is necessary because of the startup time for rbx
-function dotfiles/terminal/update_rprompt() {
-  RPROMPT="\$(safe_prompt_color)$(ruby -v | cut -d ' ' -f -2)$(safe_reset_color)"
-}
-dotfiles/terminal/update_rprompt
-
 ls_on_chdir() { ls; }
 
 add-zsh-hook chpwd ls_on_chdir
