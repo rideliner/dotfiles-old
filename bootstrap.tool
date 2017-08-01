@@ -9,7 +9,7 @@ function {
 
   getModulesResolved mods
 
-  mods=(.internal $mods)
+  mods=($mods .internal)
 
   for src ($DOTFILES_PATH/${^mods}/*.bootstrap(N)); do
     name="${${src#$DOTFILES_PATH/}%.bootstrap}"
