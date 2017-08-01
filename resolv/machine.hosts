@@ -1,0 +1,12 @@
+
+##
+# Machine Specific hosts
+##
+
+`
+case $DOTFILES_FULL_HOST in
+  marple* )
+    echo "192.168.99.100 gateway.vpn.rideliner.net gateway"
+    ;;
+esac
+`

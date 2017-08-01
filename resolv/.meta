@@ -3,4 +3,16 @@ if [[ $UID == 0 ]]; then
 
   zstyle ':ride:resolv:symlink:conf' path '/etc'
   zstyle ':ride:resolv:symlink:conf' name '!?.?'
+
+  case $DOTFILES_FULL_HOST in
+    marple* | hastings* )
+      zstyle ':ride:resolv' hosts base arvata machine global
+      ;;
+    * )
+      zstyle ':ride:resolv' hosts base machine global
+      ;;
+  esac
+
+  zstyle ':ride:resolv:symlink:hosts' path '/etc'
+  zstyle ':ride:resolv:symlink:hosts' name '?'
 fi

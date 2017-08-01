@@ -1,0 +1,9 @@
+
+##
+# Arvata hosts
+##
+
+34.229.127.3  01.ace.arvata.io  ace-01
+52.91.237.188 02.ace.arvata.io  ace-02
+34.225.83.27  01.ui.arvata.io   ui-01   console.arvata.io
+52.86.145.160 01.gw.arvata.io   gw-01   api.arvata.io
