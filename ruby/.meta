@@ -1,7 +1,6 @@
-case $DOTFILES_FULL_HOST in
-  marple* | hastings* )
-    zstyle ':ride:ruby' enabled true
-esac
+if (( $+commands[ruby] || $+commands[rbx] || $+commands[mri] )); then
+  zstyle ':ride:ruby' enabled true
+fi
 
 zstyle ':ride:ruby' depend terminal
 zstyle ':ride:ruby:order' zsh gem_path chrb
