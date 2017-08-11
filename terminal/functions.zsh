@@ -46,3 +46,14 @@ if (( $+commands[xclip] )); then
   alias cbhs="cat $HISTFILE | tail -n 1 | cb"
 fi
 
+if (( $+commands[vncviewer] )); then
+  function vnc() {
+    vncviewer DotWhenNoCursor=1 "$*"
+  }
+fi
+
+if (( $+commands[x0vncserver] )); then
+  function vnc/server() {
+    x0vncserver -display :0 -passwordfile ~/.vnc/passwd
+  }
+fi
