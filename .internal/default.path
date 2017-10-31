@@ -1,4 +1,3 @@
-
 path=(
   $HOME/.local/bin
   /usr/local/sbin
@@ -8,4 +7,3 @@ path=(
   /sbin
   /bin
 )
-

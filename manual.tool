@@ -13,7 +13,7 @@ else
 
     if (( ${+Args[--all]} )); then
       source "$DOTFILES_PATH/.internal/modules.zsh"
-      findAllModules mods
+      dotfiles/modules/getAll mods
     else
       mods=($*)
     fi
@@ -37,10 +37,10 @@ else
           if [[ -f $file ]]; then
             source $file
           else
-            warning "no manual file found" ' '
+            dotfiles/log/warning "no manual file found" ' '
           fi
         else
-          fail "not a module" ' '
+          dotfiles/log/fail "not a module" ' '
         fi
       done
     fi

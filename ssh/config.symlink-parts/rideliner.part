@@ -1,0 +1,11 @@
+
+Host *.vpn.rideliner.net
+    User ride
+    PasswordAuthentication no
+    ForwardAgent yes
+    IdentityFile ~/.ssh/id_ed25519
+    Port 4949
+
+Host marple.vpn.rideliner.net
+    ForwardX11 yes
+    ForwardX11Trusted yes

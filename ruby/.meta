@@ -1,13 +1,7 @@
-if (( $+commands[ruby] || $+commands[rbx] || $+commands[mri] )); then
-  zstyle ':ride:ruby' enabled true
-fi
+#zstyle ':ride:ruby' commands 'ruby|rbx|mri'
+zstyle ':ride:ruby' anyCommands ruby rbx mri
+zstyle ':ride:ruby:zsh' order gem_path chrb
 
-zstyle ':ride:ruby' depend terminal
-zstyle ':ride:ruby:order' zsh gem_path chrb
-
-if [[ $UID == 0 ]]; then
-  zstyle ':ride:ruby:symlink:ruby' name '?'
-  zstyle ':ride:ruby:symlink:ruby' path /usr/local/bin
-else
-  zstyle ':ride:ruby:symlink:ruby' enabled false
-fi
+zstyle ':ride:ruby:symlink:ruby' privileged true
+zstyle ':ride:ruby:symlink:ruby' name '?'
+zstyle ':ride:ruby:symlink:ruby' path /usr/local/bin

@@ -36,24 +36,25 @@ function chrb() {
     return 1
   fi
 
-  if (( ! $+commands[$1] )); then
-    echo "$1 does not exist; cancelling..."
+  local r="${1:t}"
+
+  if (( ! $+commands[$r] )); then
+    echo "$r does not exist; cancelling..."
     return 1
-  elif [[ $1 == 'ruby' ]]; then
-    echo "Changing ruby to $1 would result in recursion; cancelling..."
+  elif [[ $r == 'ruby' ]]; then
+    echo "Changing ruby to $r would result in recursion; cancelling..."
     return 1
   else
     dotfiles/ruby/remove_from_gem_path
 
-    export DOTFILES_RUBY="$1"
-    dotfiles/terminal/update_rprompt
+    export DOTFILES_RUBY="$r"
 
     local new_p
     dotfiles/ruby/add_to_gem_path 'new_p'
 
     # at this point it can only be --default
     if [[ $#opts == 1 ]]; then
-      echo "Setting default ruby to $1"
+      echo "Setting default ruby to $r"
 
       if [[ -e "$DOTFILES_PATH/ruby/ruby.path" ]]; then
         rm "$DOTFILES_PATH/ruby/ruby.path"
@@ -69,7 +70,7 @@ else
 fi
 EOF
     else
-      echo "Changing ruby to $1"
+      echo "Changing ruby to $r"
     fi
   fi
 }

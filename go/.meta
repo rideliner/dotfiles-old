@@ -1,3 +1,1 @@
-if (( $+commands[go] )); then
-  zstyle ':ride:go' enabled true
-fi
+zstyle ':ride:go' groups dev

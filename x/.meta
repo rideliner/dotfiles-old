@@ -1,8 +1,4 @@
-if [[ $UID != 0 ]]; then
-  case $DOTFILES_FULL_HOST in
-    hastings* | marple* )
-      zstyle ':ride:x' enabled true
-  esac
-fi
+zstyle ':ride:x' groups desktop
+zstyle ':ride:x' privileged false
 
 zstyle ':ride:x:symlink:resources' name '.X?'

@@ -24,14 +24,12 @@ function clearcpu() {
 # xclip shortcuts for clipboard
 if (( $+commands[xclip] )); then
   function cb() {
-    local input
-    if ! [[ "$(tty)" == /dev/* ]]; then
-      input="$(< /dev/stdin)"
-    else
-      input="$*"
-    fi
+    xclip -selection c
+  }
 
-    echo -n "$input" | xclip -selection c
+  # Copy parameters string
+  function cbe() {
+    echo "$*" | cb
   }
 
   # Copy contents of a file

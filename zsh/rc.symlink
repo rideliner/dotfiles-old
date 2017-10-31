@@ -11,13 +11,13 @@ source "$DOTFILES_PATH/.internal/update.zsh"
 if [[ $1 == 'update' ]]; then; updateDotfiles; exit; fi
 
 local mods
-getModulesResolved mods
+dotfiles/dependencies/getModulesResolved mods
 
 local -aU config_files path_files completion_files
 
 # load the path files
 for module in $mods; do
-  zstyle -a ":ride:$module:order" path path_files
+  zstyle -a ":ride:$module:path" order path_files
   path_files=($DOTFILES_PATH/$module/${^path_files}.path(N))
   path_files+=($DOTFILES_PATH/$module/*.path(N))
 
@@ -28,12 +28,14 @@ done
 
 # load the zsh files
 for module in $mods; do
-  zstyle -a ":ride:$module:order" zsh config_files
+  zstyle -a ":ride:$module:zsh" order config_files
   config_files=($DOTFILES_PATH/$module/${^config_files}.zsh(N))
   config_files+=($DOTFILES_PATH/$module/*.zsh(N))
 
   for src_file in $config_files; do
-    source $src_file
+    if dotfiles/check/isActive ":ride:$module:zsh:${src_file:t:r}"; then
+      source $src_file
+    fi
   done
 done
 
@@ -43,7 +45,7 @@ compinit
 
 # load every completion file after autocomplete tools
 for module in $mods; do
-  zstyle -a ":ride:$module:order" completion completion_files
+  zstyle -a ":ride:$module:completion" order completion_files
   completion_files=($DOTFILES_PATH/$module/${^completion_files}.completion(N))
   completion_files+=($DOTFILES_PATH/$module/*.completion(N))
 

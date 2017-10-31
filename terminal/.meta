@@ -1,35 +1,43 @@
-function() {
-  zstyle ':ride:terminal' enabled true
-
-  local color console char
-
-  case $DOTFILES_FULL_HOST in
-    poirot* )
-      color=red ;;
-    marple* )
-      color=cyan ;;
-    pyne* )
-      color=magenta ;;
-    hastings* )
-      color=green ;;
-    lemon* )
-      color=yellow ;;
+function dotfiles/terminal/color() {
+  case `hostname -s` in
+    poirot )
+      print red ;;
+    marple )
+      print cyan ;;
+    pyne )
+      print magenta ;;
+    hastings )
+      print green ;;
+    lemon )
+      print yellow ;;
+    oliver )
+      print blue ;;
     * )
-      color=white
+      print white
   esac
+}
 
+function dotfiles/terminal/character() {
   case `whoami` in
     ride )
-      char='\u271D'
-      console='+'
-      ;;
+      print '\u271D' ;;
     root )
-      char='\uA4' ;;
+      print '\uA4' ;;
     * )
-      char='$'
+      print '$'
   esac
-
-  zstyle ':ride:terminal:prompt' color $color
-  zstyle ':ride:terminal:prompt' char $char
-  [[ -n $console ]] && zstyle ':ride:terminal:prompt' console-char $console
 }
+
+function dotfiles/terminal/consoleCharacter() {
+  case `whoami` in
+    ride )
+      print '+'
+      ;;
+    * )
+      dotfiles/terminal/character
+  esac
+}
+
+zstyle ':ride:terminal:prompt' color $(dotfiles/terminal/color)
+zstyle ':ride:terminal:prompt' char $(dotfiles/terminal/character)
+zstyle ':ride:terminal:prompt' console-char $(dotfiles/terminal/consoleCharacter)

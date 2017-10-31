@@ -1,3 +1,0 @@
-if [[ $UID != 0 ]]; then
-  zstyle ':ride:c++' enabled true
-fi

@@ -1,73 +1,55 @@
 source "${0:A:h}/modules.zsh"
 source "$DOTFILES_PATH/.internal/log.zsh"
 
-function getModulesResolved() {
+function dotfiles/dependencies/getModulesResolved() {
   local _some _all _final
 
-  getModules _some
+  dotfiles/modules/getActive _some
 
   if [[ ${#_some} -eq 0 ]]; then
-    fail 'No modules are enabled for this user/host setup.' ' '
+    dotfiles/log/fail 'No modules are enabled for this user/host setup.' ' '
     return $?
   fi
 
-  resolveAllDependencies _some _all
+  dotfiles/dependencies/resolveAll _some _all
+  if (( $? != 0 )); then
+    dotfiles/log/info "To see why modules are not active, run \`dotfiles/debug/inactive\`" ' '
+  fi
 
-  checkRequirements _all _final
-
-  eval "$1=($_final)"
+  eval "$1=($_all)"
 }
 
-function checkRequirements() {
-  local -a _resolvedRequirements
-  local _reqs _valid
+function dotfiles/dependencies/verifyActive() {
+  local _extras _extra
+  _extras=($(dotfiles/util/extras $2 $3))
 
-  for mod (${(P)=1}); do
-    _valid="true"
-
-    zstyle -a ":ride:$mod" requirements _reqs
-
-    for req ($_reqs); do
-      case $req in
-        privileged )
-          if [[ $UID != 0 ]]; then
-            _valid="false"
-            warning "The '$mod' module requires root privileges. Skipping." ' '
-          fi
-          ;;
-        * )
-          warning "'$req' is not a recognized requirement. Ignoring." ' '
-      esac
-    done
-
-    if [[ $_valid == "true" ]]; then
-      _resolvedRequirements+=($mod)
-    fi
+  for _extra ($_extras); do
+    dotfiles/log/fail "$_extra is a dependency of $1, but is not active" ' '
   done
-
-  eval "$2=($_resolvedRequirements)"
 }
 
-function resolveAllDependencies() {
+function dotfiles/dependencies/resolveAll() {
   local -a dependencies
   local -Ua total
 
-  for mod (${(P)=1}); do
-    resolveDependencies $mod dependencies
+  for _mod (${(P)=1}); do
+    dotfiles/dependencies/resolve $_mod dependencies
     total+=($dependencies)
+
+    dotfiles/dependencies/verifyActive "$_mod" "$1" dependencies
   done
 
   eval "$2=($total)"
 }
 
-function resolveDependencies() {
+function dotfiles/dependencies/resolve() {
   local -a resolved unresolved
-  resolveDependenciesInternal "$1" resolved unresolved
+  dotfiles/dependencies/resolveInternal "$1" resolved unresolved
 
   eval "$2=($resolved)"
 }
 
-function resolveDependenciesInternal() {
+function dotfiles/dependencies/resolveInternal() {
   eval "$3+=($1)" # add to unresolved
 
   zstyle -a ":ride:$1" depend nodes
@@ -82,7 +64,7 @@ function resolveDependenciesInternal() {
       fi
 
       # recursive dependency check
-      resolveDependenciesInternal "$edge" $2 $3
+      dotfiles/dependencies/resolveInternal "$edge" $2 $3
     fi
   done
 

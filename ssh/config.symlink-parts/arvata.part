@@ -1,0 +1,20 @@
+
+Host *.ace.arvata.io ace*
+    User centos
+    IdentityFile ~/.ssh/id_ed25519
+
+Host *.ui.arvata.io ui*
+    User ubuntu
+    IdentityFile ~/.ssh/id_ed25519
+
+Host api.arvata.io
+    User root
+    IdentityFile ~/.ssh/ryan_blain
+
+Host gateway.vpn.rideliner.net gateway
+    User root
+    IdentityFile ~/.ssh/gateway_rsa
+
+Host gateway-forward
+    Hostname gateway
+    LocalForward 0.0.0.0:8443 localhost:8443

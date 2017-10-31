@@ -1,13 +1,11 @@
-if [[ $UID != 0 ]]; then
-  case $DOTFILES_FULL_HOST in
-    marple* | hastings* )
-      zstyle ':ride:gem' enabled true
-  esac
-fi
-
+zstyle ':ride:gem' privileged false
+zstyle ':ride:gem' groups dev
 zstyle ':ride:gem' depend ruby
 
 zstyle ':ride:gem:symlink:rc' name '.!?'
 
 zstyle ':ride:gem:symlink:rubygems' path '~/.!'
 zstyle ':ride:gem:symlink:rubygems' name 'credentials'
+
+zstyle ':ride:gem:permissions:rubygems' file './rubygems.symlink'
+zstyle ':ride:gem:permissions:rubygems' mode 600

@@ -1,4 +1,5 @@
 
+export TERMINAL="urxvt"
 export LSCOLORS="exfxcxdxbxegedabagacad"
 export QUOTING_STYLE=literal
 export CLICOLOR=true

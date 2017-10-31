@@ -1,6 +1,0 @@
-
-function() {
-  zstyle -a ':ride:resolv' hosts hosts
-
-  echo ${(e)"$(cat /dev/null $DOTFILES_PATH/resolv/${^hosts}.hosts(N))"} >| $DOTFILES_PATH/resolv/hosts.symlink
-}

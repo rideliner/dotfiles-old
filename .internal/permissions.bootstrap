@@ -1,0 +1,33 @@
+#!/usr/bin/env zsh
+
+source "${0:A:h}/dependency.zsh"
+source "$DOTFILES_PATH/.internal/resolve.zsh"
+
+function {
+  local mods
+
+  dotfiles/dependencies/getModulesResolved mods
+
+  local -Ua styles
+  local file mode
+
+  for mod ($mods); do
+    styles=($(zstyle -L ":ride:$mod:permissions:*" | cut -d' ' -f2))
+
+    for style ($styles); do
+      zstyle -s $style file file
+      zstyle -s $style mode mode
+
+      file=$(dotfiles/resolve/relativeToDirectory "$file" "$DOTFILES_PATH/$mod")
+      file=$(dotfiles/resolve/currentUserPartition "$file")
+      file=$(dotfiles/resolve/home "$file")
+
+      if [[ `stat -c '%a' "$file"` == *$mode ]]; then
+        dotfiles/log/success "$file already set to $mode"
+      else
+        chmod $mode $file
+        dotfiles/log/status $? "$file changed to $mode"
+      fi
+    done
+  done
+}

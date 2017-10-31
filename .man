@@ -17,6 +17,6 @@ Available Modules:
 END
 
   local mods
-  findAllModules mods
+  dotfiles/modules/getAll mods
   column =(echo "${(@F)mods}")
 }

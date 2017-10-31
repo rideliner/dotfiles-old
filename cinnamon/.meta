@@ -1,4 +1,2 @@
-case $DOTFILES_FULL_HOST in
-  hastings* | marple* )
-    zstyle ':ride:cinnamon' enabled true
-esac
+zstyle ':ride:cinnamon' privileged false
+zstyle ':ride:cinnamon' groups desktop/cinnamon

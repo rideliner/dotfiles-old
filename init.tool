@@ -2,14 +2,14 @@
 
 source "${0:A:h}/.internal/path.zsh"
 source "$DOTFILES_PATH/.internal/log.zsh"
+source "$DOTFILES_PATH/.internal/dependency.zsh"
 
 function {
-  local src name bootstraps
+  local mods src name bootstraps
 
-  # .internal bootstraps need to be done in a specific order
-  bootstraps+=($DOTFILES_PATH/.internal/partition.bootstrap)
-  bootstraps+=($DOTFILES_PATH/.internal/symlink.bootstrap)
-  bootstraps+=($DOTFILES_PATH/.internal/permissions.bootstrap)
+  dotfiles/dependencies/getModulesResolved mods
+
+  bootstraps=($DOTFILES_PATH/${^mods}/*.bootstrap(N))
 
   for src ($bootstraps(N)); do
     name="${${src#$DOTFILES_PATH/}%.bootstrap}"
@@ -19,4 +19,6 @@ function {
 
     dotfiles/log/wrapper/end "finished $name bootstrap"
   done
+
+  $DOTFILES_PATH/bootstrap.tool
 }

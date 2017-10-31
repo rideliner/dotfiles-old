@@ -1,3 +1,2 @@
-if (( $+commands[python] || $+commands[python2] || $+commands[python3] )); then
-  zstyle ':ride:python' enabled true
-fi
+#zstyle ':ride:python' commands 'python|python2|python3'
+zstyle ':ride:python' anyCommands python python2 python3

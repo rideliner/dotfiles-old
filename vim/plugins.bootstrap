@@ -3,18 +3,58 @@
 source "${0:A:h}/../.internal/path.zsh"
 source "$DOTFILES_PATH/.internal/git.zsh"
 
+function dotfiles/vim/updatePlugins() {
+  vim -c "$1PlugUpdate | \$quit | 4,\$w $2 | q!"
+  cat $2
+}
+
+function dotfiles/vim/prettyPrintPluginStatus() {
+  local plugin="${$(echo "$1" | cut -d':' -f1)[3,-1]}"
+  local message
+
+  case "$1" in
+    -* )
+      message="$(echo "$1" | cut -d':' -f2- | cut -b2-)"
+      dotfiles/log/success "$plugin: $message"
+      ;;
+    x* )
+      message="$(echo "$1" | cut -d':' -f2- | cut -b2-)"
+      dotfiles/log/fail "$plugin: $message"
+      ;;
+    * )
+      message="$(echo "$1" | cut -c5-)"
+      dotfiles/log/sub "$message"
+      echo
+      ;;
+  esac
+}
+
 function() {
   local cmd=""
+  local -a results
+  local ret=0
 
   if [[ ! -s "$HOME/.vim/autoload/plug.vim" ]]; then
     curl -fLo "$DOTFILES_PATH/vim/plug.symlink" --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   else
-    cmd="PlugUpgrade |"
+    cmd="PlugUpgrade | "
   fi
 
-  vim -c "$cmd PlugUpdate | \$quit"
+  results=${(V)"$(dotfiles/vim/updatePlugins "$cmd" =() 2&>/dev/null)"}
+  local -i found=${results[(i)\?1049l]}
+  results=("${(f)$(echo "${results[$(($found + 6)), -1]}")}")
 
-  if doDotfilesUseGit; then
+  for (( i=2; i <= ${#results}; i++ )); do
+    dotfiles/vim/prettyPrintPluginStatus "${results[i]}"
+
+    if [[ $? != 0 ]]; then
+      ret=1
+    fi
+  done
+
+  if dotfiles/git/isSetup; then
     git update-index --assume-unchanged $DOTFILES_PATH/vim/plug.symlink
   fi
+
+  return $ret
 }

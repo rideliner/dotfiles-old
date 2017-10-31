@@ -3,31 +3,31 @@
 source "${0:A:h}/.internal/path.zsh"
 source "$DOTFILES_PATH/.internal/dependency.zsh"
 
-zparseopts -D -E -A Args -- -all -enabled -usage -help
+zparseopts -D -E -A Args -- -all -active -usage -help
 
 if (( ${+Args[--usage]} || ${+Args[--help]} )); then
-  echo "Usage: $0 [--usage|help] [--enabled|<module>*] [--all]"
+  echo "Usage: $0 [--usage|help] [--active|<module>*] [--all]"
   echo
   echo "--all"
   echo "    Show modules that don't have dependencies."
-  echo "--enabled"
-  echo "    Only check dependencies of enabled modules."
+  echo "--active"
+  echo "    Only check dependencies of active modules."
   echo "<module>*"
   echo "    Space separated list of modules to check the dependencies of."
 else
   function {
-    local i mods deps
+    local i mod mods deps _ignored
 
-    if (( ${+Args[--enabled]} )); then
-      getModules mods
+    if (( ${+Args[--active]} )); then
+      dotfiles/modules/getActive mods
     elif [[ $# -eq 0 ]]; then
-      findAllModules mods
+      dotfiles/modules/getAll mods
     else
-      mods=($*)
+      dotfiles/modules/getSome mods $*
     fi
 
     for mod in $mods; do
-      resolveDependencies $mod deps
+      dotfiles/dependencies/resolve $mod deps
 
       if [[ ${+Args[--all]} -eq 1 || $#deps -gt 1 ]]; then
         echo "$mod"

@@ -1,4 +1,6 @@
 
+# THIS FILE IS COMPLETELY WRONG... IGNORE IT
+
 ## Module format
 
 Any directory in the dotfiles repo is considered to be a module unless it starts with a period (.).

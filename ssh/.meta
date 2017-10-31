@@ -1,6 +1,10 @@
-[[ $UID != 0 ]] && zstyle ':ride:ssh' enabled true
+zstyle ':ride:ssh' privileged false
 
+zstyle ':ride:ssh:symlink:config' parts base rideliner git $(dotfiles/check/ifInGroup "dev" "arvata")
 zstyle ':ride:ssh:symlink:config' path '~/.!'
 zstyle ':ride:ssh:symlink:config' name '?'
 
 zstyle ':ride:ssh' identities id_ed25519
+
+zstyle ':ride:ssh:permissions:config' file './config.symlink@*'
+zstyle ':ride:ssh:permissions:config' mode 640

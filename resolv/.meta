@@ -1,18 +1,11 @@
-if [[ $UID == 0 ]]; then
-  zstyle ':ride:resolv' enabled true
+zstyle ':ride:resolv' privileged true
 
-  zstyle ':ride:resolv:symlink:conf' path '/etc'
-  zstyle ':ride:resolv:symlink:conf' name '!?.?'
+zstyle ':ride:resolv:symlink:conf' path '/etc'
+zstyle ':ride:resolv:symlink:conf' name '!?.?'
 
-  case $DOTFILES_FULL_HOST in
-    marple* | hastings* )
-      zstyle ':ride:resolv' hosts base arvata machine global
-      ;;
-    * )
-      zstyle ':ride:resolv' hosts base machine global
-      ;;
-  esac
+# hosts.symlink@root is auto-generated
+zstyle ':ride:resolv:symlink:hosts' parts base $(dotfiles/check/ifInGroup "dev" "arvata") machine global
+zstyle ':ride:resolv:symlink:hosts' path '/etc'
+zstyle ':ride:resolv:symlink:hosts' name '?'
 
-  zstyle ':ride:resolv:symlink:hosts' path '/etc'
-  zstyle ':ride:resolv:symlink:hosts' name '?'
-fi
+#zstyle ':ride:resolv:hosts' parts base $(dotfiles/check/ifInGroup "dev" "arvata") machine global

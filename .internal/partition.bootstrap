@@ -1,0 +1,28 @@
+#!/usr/bin/env zsh
+
+source "${0:A:h}/dependency.zsh"
+source "$DOTFILES_PATH/.internal/resolve.zsh"
+
+# Currently only implemented for symlinks, but could be modified for other purposes if the need arises
+function {
+  local mods src mod link style
+  local -Ua parts
+
+  dotfiles/dependencies/getModulesResolved mods
+
+  for src ($DOTFILES_PATH/${^mods}/*.symlink-parts(N)); do
+    mod=${src:h:t}
+    link=${src:t:r}
+
+    style=":ride:${mod}:symlink:${link}"
+
+    if ! dotfiles/check/isActive "$style"; then
+      continue
+    fi
+
+    zstyle -a "$style" parts parts
+
+    echo ${(e)"$(cat /dev/null $src/${^parts}.part(N))"} >| ${src%-parts}@$USER
+    dotfiles/log/status $? "partitioned ${${src#$DOTFILES_PATH/}%-parts}@$USER"
+  done
+}

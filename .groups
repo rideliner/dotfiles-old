@@ -1,0 +1,29 @@
+
+# known groups: dev desktop desktop/cinnamon sshd
+
+function() {
+  local -a groups
+
+  case `hostname -s` in
+    marple )
+      groups+=(desktop desktop/cinnamon dev server/sshd)
+      ;;
+    oliver )
+      groups+=(desktop desktop/cinnamon dev)
+      ;;
+    lemon )
+      groups+=(server/sshd)
+      ;;
+    pyne )
+      groups+=(server/sshd)
+      ;;
+    poirot )
+      groups+=(dev server/sshd)
+      ;;
+    hastings )
+      groups+=()
+      ;;
+  esac
+
+  zstyle ':ride' groups $groups
+}
