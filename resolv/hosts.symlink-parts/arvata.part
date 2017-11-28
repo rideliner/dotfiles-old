@@ -7,5 +7,5 @@
 52.91.237.188  02.ace.arvata.io  ace-02  ace-server-2.node.dc1.consul ip-172-31-81-98.ec2.internal
 34.228.72.100  01.ui.arvata.io   ui-01   console.arvata.io
 #34.237.136.142 02.ui.arvata.io   ui-02   arvata.io
-52.86.145.160  01.gw.arvata.io   gw-01   api.arvata.io
+52.205.92.217  01.gw.arvata.io   gw-01   api.arvata.io
 54.87.229.14                             services.arvata.io
